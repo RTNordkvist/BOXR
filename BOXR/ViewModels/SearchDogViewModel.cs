@@ -1,4 +1,4 @@
-﻿using BOXR.Data.Repositories;
+﻿using BOXR.DataAccess.Repositories;
 using BOXR.UI.Commands;
 using BOXR.UI.Extensions;
 using BOXR.UI.ViewModels.EntityViewModels;

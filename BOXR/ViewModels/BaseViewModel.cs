@@ -1,5 +1,5 @@
 ﻿using BOXR.Data.Models;
-using BOXR.Data.Repositories;
+using BOXR.DataAccess.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

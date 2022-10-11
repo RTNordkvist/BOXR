@@ -1,4 +1,4 @@
-﻿using BOXR.Data.Repositories;
+﻿using BOXR.DataAccess.Repositories;
 using BOXR.UI.ViewModels;
 using System;
 using System.Collections.Generic;

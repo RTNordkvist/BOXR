@@ -106,15 +106,15 @@ namespace BOXR.UI.ViewModels.EntityViewModels
             }
         }
 
-        private char? _hdStatus;
-        public char? HdStatus
+        private char? _hdGrade;
+        public char? HdGrade
         {
-            get { return _hdStatus; }
+            get { return _hdGrade; }
             set
             {
-                if (HdStatus != value)
+                if (HdGrade != value)
                 {
-                    _hdStatus = value;
+                    _hdGrade = value;
                 }
                 RaisePropertyChanged("HdStatus");
             }
@@ -134,29 +134,29 @@ namespace BOXR.UI.ViewModels.EntityViewModels
             }
         }
 
-        private int? _spondylosisStatus;
-        public int? SpondylosisStatus
+        private int? _spondylosisGrade;
+        public int? SpondylosisGrade
         {
-            get { return _spondylosisStatus; }
+            get { return _spondylosisGrade; }
             set
             {
-                if (SpondylosisStatus != value)
+                if (SpondylosisGrade != value)
                 {
-                    _spondylosisStatus = value;
+                    _spondylosisGrade = value;
                 }
                 RaisePropertyChanged("SpondylosisStatus");
             }
         }
 
-        private int? _heartStatus;
-        public int? HeartStatus
+        private int? _heartGrade;
+        public int? HeartGrade
         {
-            get { return _heartStatus; }
+            get { return _heartGrade; }
             set
             {
-                if (HeartStatus != value)
+                if (HeartGrade != value)
                 {
-                    _heartStatus = value;
+                    _heartGrade = value;
                 }
                 RaisePropertyChanged("HeartStatus");
             }

@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BOXR.Data\BOXR.Data.csproj" />
+    <ProjectReference Include="..\BOXR.DataAccess\BOXR.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
