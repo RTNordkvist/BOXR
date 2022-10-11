@@ -14,132 +14,58 @@ namespace BOXR.DataAccess.Repositories
 {
     public class DogRepository
     {
-        private List<Dog> dogs = new List<Dog>();
-
-        private List<Color> colors;
-
-        private string path = "Dog.txt";
-
-        private DataTable dataTable = new DataTable();
-
         private readonly string _connectionString;
 
-        public DogRepository(ColorRepository colorRepository, string connectionString)
+        public DogRepository(string connectionString)
         {
-            InitializeRepository();
-            colors = colorRepository.GetAll();
             _connectionString = connectionString;
-            //PullData();
-            Find1("BR123456", null, null); //TODO make sure this works
-        }
-
-        private void InitializeRepository()
-        {
-            try
-            {
-                using (StreamReader sr = new StreamReader(path))
-                {
-                    var lines = new List<string>();
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        lines.Add(line);
-                    }
-                    sr.Close();
-
-                    for (int i = 0; i < lines.Count; i++)
-                    {
-                        string[] data = lines[i].Split(';');
-                        dogs.Add(new Dog()
-                        {
-                            Id = int.Parse(data[0]),
-                            PedigreeNumber = data[1],
-                            Name = data[2],
-                            Breeder = data[3],
-                            BirthDate = string.IsNullOrEmpty(data[4]) ? null : DateTime.Parse(data[4]), //Denne property er nullable, så der parses til null eller DateTime
-                            Gender = Enum.TryParse(data[5], out Gender gender) ? null : gender, //Denne property er nullable
-                            ChipNumber = data[6],
-                            InbreedingCoefficient = double.TryParse(data[7], out double ic) == false ? null : ic, //Denne property er nullable
-                            HdGrade = Enum.TryParse(data[8], out HdGrade hdg) == false ? null : hdg, //Denne property er nullable
-                            HdIndex = int.TryParse(data[9], out int hi) == false ? null : hi, //Denne property er nullable
-                            SpondylosisGrade = Enum.TryParse(data[10], out SpondylosisGrade sg) == false ? null : sg, //Denne property er nullable
-                            HeartGrade = Enum.TryParse(data[11], out HearthGrade hs) == false ? null : hs, //Denne property er nullable
-                            Color = colors.FirstOrDefault(x => x.Name == data[12]),
-                            IsAlive = bool.Parse(data[13]),
-                            MotherPedigreeNumber = data[14],
-                            FatherPedigreeNumber = data[15],
-                            Owner = data[16],
-                        });
-                    }
-                }
-            }
-
-            catch (Exception)
-            {
-                dogs = new List<Dog>();
-            }
-
         }
 
         public int Add(Dog dog)
         {
             if (!string.IsNullOrEmpty(dog.PedigreeNumber) && !string.IsNullOrEmpty(dog.Name) && !string.IsNullOrEmpty(dog.Breeder))
             {
-                dog.Id = GetId();
-                dogs.Add(dog);
-                UpdateDatabase();
+                string command = @"INSERT INTO Dog 
+                (PedigreeNumber, Name, BirthDate, Gender, ChipNumber, HdGrade, SpondylosisGrade, HeartGrade, Color, IsAlive, MotherPedigreeNumber, FatherPedigreeNumber, Breeder) 
+                VALUES 
+                (@PedigreeNumber, @Name, @BirthDate, @Gender, @ChipNumber, @HdGrade, @SpondylosisGrade, @HeartGrade, @Color, @IsAlive, @MotherPedigreeNumber, @FatherPedigreeNumber, @Breeder);
+                SELECT SCOPE_IDENTITY();";
+
+                SqlConnection conn = new SqlConnection(_connectionString);
+                SqlCommand cmd = new SqlCommand(command, conn);
+                cmd.Parameters.AddWithValue("@PedigreeNumber", dog.PedigreeNumber ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Name", dog.Name ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@BirthDate", dog.BirthDate ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Gender", dog.Gender ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@ChipNumber", dog.ChipNumber ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@HdGrade", dog.HdGrade ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@SpondylosisGrade", dog.SpondylosisGrade ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@HeartGrade", dog.HeartGrade ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Color", dog.Color ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@IsAlive", dog.IsAlive);
+                cmd.Parameters.AddWithValue("@MotherPedigreeNumber", dog.MotherPedigreeNumber ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@FatherPedigreeNumber", dog.FatherPedigreeNumber ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Breeder", dog.Breeder ?? (object)DBNull.Value);
+                
+                conn.Open();
+                // create data adapter
+                cmd.CommandType = CommandType.Text;
+                var res = cmd.ExecuteScalar();
+                conn.Close();
+                dog.Id = Convert.ToInt32(res);
             }
             else
             {
                 throw new ArgumentException("Not all arguments are valid");
             }
-            return dog.Id;
-        }
 
-        public Dog Get(int id)
-        {
-            return dogs.FirstOrDefault(x => x.Id == id);
+            return dog.Id;
         }
 
         public Dog Get(string pedigreeNumber)
         {
-            return dogs.FirstOrDefault(x => x.PedigreeNumber == pedigreeNumber);
-        }
+            DataTable dataTable = new DataTable();
 
-        public IEnumerable<Dog> Find(string pedigreeNumber, string name, string breeder)
-        {
-            return dogs.Where(x =>
-                    (string.IsNullOrWhiteSpace(pedigreeNumber) || x.PedigreeNumber.Contains(pedigreeNumber, StringComparison.InvariantCultureIgnoreCase)) &&
-                    (string.IsNullOrWhiteSpace(name) || x.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase)) &&
-                    (string.IsNullOrWhiteSpace(breeder) || x.Breeder.Contains(breeder, StringComparison.InvariantCultureIgnoreCase)));
-        }
-
-        private int GetId()
-        {
-            if (dogs.Any())
-            {
-                return dogs.Max(x => x.Id) + 1;
-            }
-
-            return 1;
-        }
-
-        public void UpdateDatabase()
-        {
-            using (StreamWriter sw = new StreamWriter(path))
-            {
-                foreach (var dog in dogs)
-                {
-                    sw.WriteLine($"{dog.Id};{dog.PedigreeNumber};{dog.Name};{dog.Breeder};{dog.BirthDate};" +
-                    $"{dog.Gender};{dog.ChipNumber};{dog.InbreedingCoefficient};{dog.HdGrade};" +
-                    $"{dog.HdIndex};{dog.SpondylosisGrade};{dog.HeartGrade};{dog.Color.Name};" +
-                    $"{dog.IsAlive};{dog.MotherPedigreeNumber};{dog.FatherPedigreeNumber};{dog.Owner}");
-                }
-            }
-        }
-
-        public Dog Get1(string pedigreeNumber)
-        {
             string query = "SELECT * FROM Dog WHERE PedigreeNumber = @pedigreeNumber";
 
             SqlConnection conn = new SqlConnection(_connectionString);
@@ -158,9 +84,10 @@ namespace BOXR.DataAccess.Repositories
             return result;
         }
 
-
-        public Dog Get1(int id)
+        public Dog Get(int id)
         {
+            DataTable dataTable = new DataTable();
+
             string query = "SELECT * FROM Dog WHERE Id = @id";
 
             SqlConnection conn = new SqlConnection(_connectionString);
@@ -177,11 +104,12 @@ namespace BOXR.DataAccess.Repositories
             var result = dataTable.AsEnumerable().Any() ? ConvertToDog(dataTable.AsEnumerable().First()) : null;
 
             return result;
-
         }
 
-        public IEnumerable<Dog> Find1(string pedigreeNumber, string name, string breeder)
+        public IEnumerable<Dog> Find(string pedigreeNumber, string name, string breeder)
         {
+            DataTable dataTable = new DataTable();
+
             string query = @"SELECT * FROM Dog WHERE 
                             (@pedigreeNumber IS NULL OR PedigreeNumber LIKE @pedigreeNumber) AND
                             (@name IS NULL OR Name LIKE @name) AND
@@ -219,11 +147,11 @@ namespace BOXR.DataAccess.Repositories
             dog.Name = Convert.ToString(rw["Name"]);
             dog.Breeder = Convert.ToString(rw["Breeder"]);
             dog.BirthDate = DateTime.TryParse(Convert.ToString(rw["BirthDate"]), out DateTime birthdate) ? birthdate : null;
-            //dog.Gender = Enum.TryParse(Convert.ToString(rw["Gender"]), out Gender gender) ? null : gender;
+            dog.Gender = Enum.TryParse(Convert.ToString(rw["Gender"]), out Gender gender) ? null : gender;
             dog.ChipNumber = Convert.ToString(rw["ChipNumber"]);
-            //dog.HdStatus = ;
-            //dog.SpondylosisStatus = ;
-            //dog.HeartStatus = ;
+            dog.HdGrade = Enum.TryParse(Convert.ToString(rw["HdGrade"]), out HdGrade hdGrade) ? null : hdGrade;
+            dog.SpondylosisGrade = Enum.TryParse(Convert.ToString(rw["SpondylosisGrade"]), out SpondylosisGrade spondylosisGrade) ? null : spondylosisGrade;
+            dog.HeartGrade = Enum.TryParse(Convert.ToString(rw["HeartGrade"]), out HeartGrade heartGrade) ? null : heartGrade;
             //dog.Color = ;
             dog.IsAlive = Convert.ToBoolean(rw["IsAlive"]);
             dog.MotherPedigreeNumber = string.IsNullOrEmpty(Convert.ToString(rw["MotherPedigreeNumber"])) ? null : Convert.ToString(rw["MotherPedigreeNumber"]);

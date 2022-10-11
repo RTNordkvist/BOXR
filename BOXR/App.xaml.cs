@@ -19,12 +19,11 @@ namespace BOXR
         {
             var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-            ColorRepository colorRepository = new ColorRepository();
-            DogRepository dogRepository = new DogRepository(colorRepository, connectionString);
+            DogRepository dogRepository = new DogRepository(connectionString);
 
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(dogRepository, colorRepository)
+                DataContext = new MainViewModel(dogRepository)
             };
 
             MainWindow.Show();

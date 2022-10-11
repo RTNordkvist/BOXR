@@ -60,7 +60,7 @@ namespace BOXR.UI.ViewModels
             }
         }
 
-        public MainViewModel(DogRepository dogRepository, ColorRepository colorRepository)
+        public MainViewModel(DogRepository dogRepository)
         {
             PageViewModels.Add(new HomeViewModel());
 
@@ -73,7 +73,7 @@ namespace BOXR.UI.ViewModels
             });
             PageViewModels.Add(searchDogViewModel);
 
-            var registerDogViewModel = new RegisterDogViewModel(dogRepository, colorRepository);
+            var registerDogViewModel = new RegisterDogViewModel(dogRepository);
             registerDogViewModel.NavigateHomeCommand = new RelayCommand(d => ChangeViewModel(PageViewModels.First(x => x.GetType() == typeof(HomeViewModel))));
             registerDogViewModel.NavigateToDogProfileCommand = new RelayCommand(d =>
             {

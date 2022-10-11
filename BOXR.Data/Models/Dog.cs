@@ -19,7 +19,7 @@ namespace BOXR.Data.Models
         public HdGrade? HdGrade { get; set; } // TODO create an enum
         public int? HdIndex { get; set; } // TODO remove
         public SpondylosisGrade? SpondylosisGrade { get; set; } // TODO create an enum
-        public HearthGrade? HeartGrade { get; set; } // TODO create an enum
+        public HeartGrade? HeartGrade { get; set; } // TODO create an enum
         public Color Color { get; set; } // TODO foreign key, color is another table
         public bool IsAlive { get; set; }
         public string MotherPedigreeNumber { get; set; }

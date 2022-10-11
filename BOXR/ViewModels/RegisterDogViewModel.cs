@@ -27,13 +27,10 @@ namespace BOXR.UI.ViewModels
 
         public override string Name { get; set; } = "Register";
 
-        public List<Color> Colors { get; set; }
-
-        public RegisterDogViewModel(DogRepository dogRepository, ColorRepository colorRepository)
+        public RegisterDogViewModel(DogRepository dogRepository)
         {
             Dog = new DogDTO();
             DogRepository = dogRepository;
-            Colors = colorRepository.GetAll();
         }
 
         public void SaveDog()
