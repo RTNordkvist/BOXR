@@ -1,0 +1,89 @@
+﻿<Window x:Class="BOXR.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BOXR"
+        xmlns:views="clr-namespace:BOXR.UI.Views"
+        xmlns:models="clr-namespace:BOXR.UI.ViewModels"
+        mc:Ignorable="d"
+        Title="BOXR" Height="800" Width="1000" WindowStyle="SingleBorderWindow" Background="#dad8d6"
+        Icon="Resources/icon_boxer2.png">
+
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#ebecf0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#528FA2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Background="#367588" Orientation="Horizontal" Height="50">
+            <Button Command="{Binding NavigateHomeCommand}"
+                    Style="{StaticResource MenuButtonStyle}"
+                    FontSize="20" FontWeight="Bold" 
+                    MinWidth="125">
+                <Button.Content>
+                    <Grid>
+                        <TextBlock Text="BOXR" Padding="10" />
+                    </Grid>
+                </Button.Content>
+            </Button>
+            <Border DockPanel.Dock="Top" BorderThickness="0">
+                <ItemsControl ItemsSource="{Binding MenuViewModels}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal">
+                            </StackPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource MenuButtonStyle}" 
+                                    Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                                    CommandParameter="{Binding }"
+                                    Padding="10, 15">
+                                <Button.Content>
+                                    <Grid>
+                                        <TextBlock Text="{Binding Name}" Padding="10, 15"/>
+                                    </Grid>
+                                </Button.Content>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+        </StackPanel>
+
+        <ContentControl Content="{Binding CurrentViewModel}" Margin="0, 5, 0, 0">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type models:HomeViewModel}">
+                    <views:HomeView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type models:RegisterDogViewModel}">
+                    <views:RegisterDogView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type models:SearchDogViewModel}">
+                    <views:SearchDogView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type models:DogProfileViewModel}">
+                    <views:DogProfileView/>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+    </DockPanel>
+</Window>

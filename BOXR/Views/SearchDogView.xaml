@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="BOXR.UI.Views.SearchDogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
+             xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+             xmlns:local="clr-namespace:BOXR.UI.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="1000">
+    <Grid>
+        <Grid Margin="20, 10">
+            <StackPanel>
+                <Label Content="Search for a dog" VerticalAlignment="Top" FontSize="20" Margin="0, 0, 0, 20"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Pedigree Number" Grid.Row="0" Grid.Column="0" Padding="8, 5, 5, 5"/>
+                    <TextBlock Text="Name" Grid.Row="0" Grid.Column="1" Padding="8, 5, 5, 5"/>
+                    <TextBlock Text="Breeder" Grid.Row="0" Grid.Column="2" Padding="8, 5, 5, 5"/>
+
+                    <TextBox Text="{Binding SearchCriteria.PedigreeNumber, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="0"/>
+                    <TextBox Text="{Binding SearchCriteria.Name, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="1"/>
+                    <TextBox Text="{Binding SearchCriteria.Breeder, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="2"/>
+                    <Button Content="Search" 
+                        Command="{Binding SearchDogCommand}"
+                        Width="80" HorizontalAlignment="Left" Foreground="white" Background="#367588" Grid.Row="1" Grid.Column="4" Margin=" 40, 0, 0, 0"/>
+                </Grid>
+                <Label Content="Search results" VerticalAlignment="Top" FontSize="20" Margin="0, 20, 0, 0"/>
+                <Grid HorizontalAlignment="Left">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Pedigree Number" Grid.Column="0" Padding="8, 5, 5, 5"/>
+                        <TextBlock Text="Name" Grid.Column="1" Padding="8, 5, 5, 5"/>
+                        <TextBlock Text="Breeder" Grid.Column="2" Padding="8, 5, 5, 5"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <ListBox x:Name="lbdog" ItemsSource="{Binding Dogs}" SelectedItem="{Binding SelectedDog}" MinHeight="20" Margin="5, 0">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Width="596">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="200"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding PedigreeNumber}" Grid.Column="0"/>
+                                        <TextBlock Text="{Binding Name}" Grid.Column="1"/>
+                                        <TextBlock Text="{Binding Breeder}" Grid.Column="2"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
