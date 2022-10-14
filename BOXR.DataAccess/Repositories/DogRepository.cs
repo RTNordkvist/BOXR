@@ -36,12 +36,12 @@ namespace BOXR.DataAccess.Repositories
                 cmd.Parameters.AddWithValue("@PedigreeNumber", dog.PedigreeNumber ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Name", dog.Name ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@BirthDate", dog.BirthDate ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Gender", dog.Gender ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Gender", dog.Gender);
                 cmd.Parameters.AddWithValue("@ChipNumber", dog.ChipNumber ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@HdGrade", dog.HdGrade ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@SpondylosisGrade", dog.SpondylosisGrade ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@HeartGrade", dog.HeartGrade ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Color", dog.Color ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@HdGrade", dog.HdGrade);
+                cmd.Parameters.AddWithValue("@SpondylosisGrade", dog.SpondylosisGrade);
+                cmd.Parameters.AddWithValue("@HeartGrade", dog.HeartGrade);
+                cmd.Parameters.AddWithValue("@Color", dog.Color);
                 cmd.Parameters.AddWithValue("@IsAlive", dog.IsAlive);
                 cmd.Parameters.AddWithValue("@MotherPedigreeNumber", dog.MotherPedigreeNumber ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@FatherPedigreeNumber", dog.FatherPedigreeNumber ?? (object)DBNull.Value);
@@ -70,7 +70,7 @@ namespace BOXR.DataAccess.Repositories
 
             SqlConnection conn = new SqlConnection(_connectionString);
             SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@pedigreeNumber", pedigreeNumber); //Add og AddWithValue?
+            cmd.Parameters.AddWithValue("@pedigreeNumber", pedigreeNumber);
             conn.Open();
             // create data adapter
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -147,12 +147,12 @@ namespace BOXR.DataAccess.Repositories
             dog.Name = Convert.ToString(rw["Name"]);
             dog.Breeder = Convert.ToString(rw["Breeder"]);
             dog.BirthDate = DateTime.TryParse(Convert.ToString(rw["BirthDate"]), out DateTime birthdate) ? birthdate : null;
-            dog.Gender = Enum.TryParse(Convert.ToString(rw["Gender"]), out Gender gender) ? null : gender;
+            dog.Gender = Enum.TryParse(Convert.ToString(rw["Gender"]), out Gender gender) ? gender : Gender.Undecided;
             dog.ChipNumber = Convert.ToString(rw["ChipNumber"]);
-            dog.HdGrade = Enum.TryParse(Convert.ToString(rw["HdGrade"]), out HdGrade hdGrade) ? null : hdGrade;
-            dog.SpondylosisGrade = Enum.TryParse(Convert.ToString(rw["SpondylosisGrade"]), out SpondylosisGrade spondylosisGrade) ? null : spondylosisGrade;
-            dog.HeartGrade = Enum.TryParse(Convert.ToString(rw["HeartGrade"]), out HeartGrade heartGrade) ? null : heartGrade;
-            //dog.Color = ;
+            dog.HdGrade = Enum.TryParse(Convert.ToString(rw["HdGrade"]), out HdGrade hdGrade) ? hdGrade : HdGrade.Undecided;
+            dog.SpondylosisGrade = Enum.TryParse(Convert.ToString(rw["SpondylosisGrade"]), out SpondylosisGrade spondylosisGrade) ? spondylosisGrade : SpondylosisGrade.Undecided;
+            dog.HeartGrade = Enum.TryParse(Convert.ToString(rw["HeartGrade"]), out HeartGrade heartGrade) ? heartGrade : HeartGrade.Undecided;
+            dog.Color = Enum.TryParse(Convert.ToString(rw["Color"]), out Color color) ? color : Color.Undecided;
             dog.IsAlive = Convert.ToBoolean(rw["IsAlive"]);
             dog.MotherPedigreeNumber = string.IsNullOrEmpty(Convert.ToString(rw["MotherPedigreeNumber"])) ? null : Convert.ToString(rw["MotherPedigreeNumber"]);
             dog.FatherPedigreeNumber = string.IsNullOrEmpty(Convert.ToString(rw["FatherPedigreeNumber"])) ? null : Convert.ToString(rw["FatherPedigreeNumber"]);

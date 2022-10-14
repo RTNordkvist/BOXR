@@ -9,24 +9,24 @@ namespace BOXR.DataAccess.Repositories
 {
     public class ColorRepository
     {
-        private List<Color> colors = new List<Color>();
+        //private List<Color> colors = new List<Color>();
 
         public ColorRepository()
         {
-            InitialzeRepository();
+        //    InitialzeRepository();
         }
 
-        private void InitialzeRepository()
-        {
-            colors.Add(new Color { Name = "Fawn" });
-            colors.Add(new Color { Name = "Brindle" });
-            colors.Add(new Color { Name = "Fawn with white" });
-            colors.Add(new Color { Name = "Brindle with white" });
-            colors.Add(new Color { Name = "Unwanted color" });
-        }
-        public List<Color> GetAll()
-        {
-            return colors;
-        }
+        //private void InitialzeRepository()
+        //{
+        //    colors.Add(new Color { Name = "Fawn" });
+        //    colors.Add(new Color { Name = "Brindle" });
+        //   colors.Add(new Color { Name = "Fawn with white" });
+        //    colors.Add(new Color { Name = "Brindle with white" });
+        //    colors.Add(new Color { Name = "Unwanted color" });
+        //}
+        //public List<Color> GetAll()
+        //{
+        //    return colors;
+        //}
     }
 }

@@ -18,7 +18,17 @@ namespace BOXR.UI.ViewModels
 
         public override string Name { get; set; } = "Search";
 
-        public SearchDogDTO SearchCriteria { get; set; }
+
+        private SearchDogDTO _searchCriteria;
+        public SearchDogDTO SearchCriteria 
+        { 
+            get => _searchCriteria;
+            set
+            {
+                _searchCriteria = value;
+                RaisePropertyChanged(nameof(SearchCriteria));
+            }
+        }
 
         private DogDTO _selectedDog;
         public DogDTO SelectedDog
@@ -26,15 +36,15 @@ namespace BOXR.UI.ViewModels
             get => _selectedDog;
             set
             {
-                _selectedDog = value;
-                RaisePropertyChanged(nameof(SelectedDog));
-                NavigateToDogProfileCommand.Execute(SelectedDog);
+                NavigateToDogProfileCommand.Execute(value);
             }
         }
 
         public ObservableCollection<DogDTO> Dogs { get; set; }
 
         public ICommand SearchDogCommand => new RelayCommand(d => SearchDog());
+
+        public ICommand ClearDogCommand => new RelayCommand(d => ClearDog());
 
         public ICommand NavigateToDogProfileCommand { get; set; }
 
@@ -53,6 +63,7 @@ namespace BOXR.UI.ViewModels
             var seachresult = DogRepository.Find(SearchCriteria.PedigreeNumber, SearchCriteria.Name, SearchCriteria.Breeder)
                 .Select(x => new DogDTO
                 {
+                    Id = x.Id,
                     Breeder = x.Breeder,
                     Name = x.Name,
                     PedigreeNumber = x.PedigreeNumber
@@ -62,6 +73,12 @@ namespace BOXR.UI.ViewModels
             {
                 Dogs.Add(dog);
             }
+        }
+
+        private void ClearDog()
+        {
+            SearchCriteria = new();
+            Dogs.Clear();
         }
     }
 }

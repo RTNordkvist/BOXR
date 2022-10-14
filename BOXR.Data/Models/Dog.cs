@@ -13,14 +13,12 @@ namespace BOXR.Data.Models
         public string PedigreeNumber { get; set; }
         public string Name { get; set; }
         public DateTime? BirthDate { get; set; }
-        public Gender? Gender { get; set; } // TODO create an enum
+        public Gender Gender { get; set; }
         public string ChipNumber { get; set; }
-        public double? InbreedingCoefficient { get; set; } // TODO remove from this class as this class should represent exactly what is in the database
-        public HdGrade? HdGrade { get; set; } // TODO create an enum
-        public int? HdIndex { get; set; } // TODO remove
-        public SpondylosisGrade? SpondylosisGrade { get; set; } // TODO create an enum
-        public HeartGrade? HeartGrade { get; set; } // TODO create an enum
-        public Color Color { get; set; } // TODO foreign key, color is another table
+        public HdGrade HdGrade { get; set; }
+        public SpondylosisGrade SpondylosisGrade { get; set; }
+        public HeartGrade HeartGrade { get; set; }
+        public Color Color { get; set; }
         public bool IsAlive { get; set; }
         public string MotherPedigreeNumber { get; set; }
         public string FatherPedigreeNumber { get; set; }

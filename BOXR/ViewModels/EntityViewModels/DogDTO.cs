@@ -1,4 +1,5 @@
-﻿using BOXR.Data.Models;
+﻿using BOXR.Data.Enums;
+using BOXR.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,27 @@ namespace BOXR.UI.ViewModels.EntityViewModels
 {
     public class DogDTO : BaseDTO
     {
+        public DogDTO() { }
+
+        public DogDTO(Dog dog)
+        {
+            Id = dog.Id;
+            PedigreeNumber = dog.PedigreeNumber;
+            Name = dog.Name;
+            BirthDate = dog.BirthDate;
+            Gender = dog.Gender;
+            ChipNumber = dog.ChipNumber;
+            HdGrade = dog.HdGrade;
+            SpondylosisGrade = dog.SpondylosisGrade;
+            HeartGrade = dog.HeartGrade;
+            Color = dog.Color;
+            IsAlive = dog.IsAlive;
+            MotherPedigreeNumber = dog.MotherPedigreeNumber;
+            FatherPedigreeNumber = dog.FatherPedigreeNumber;
+            Breeder = dog.Breeder;
+        }
+        public int Id { get; set; }
+
         private string _pedigreeNumber;
         public string PedigreeNumber
         {
@@ -64,8 +86,8 @@ namespace BOXR.UI.ViewModels.EntityViewModels
             }
         }
 
-        private char? _gender;
-        public char? Gender
+        private Gender _gender = Gender.Undecided;
+        public Gender Gender
         {
             get { return _gender; }
             set
@@ -74,7 +96,7 @@ namespace BOXR.UI.ViewModels.EntityViewModels
                 {
                     _gender = value;
                 }
-                RaisePropertyChanged("Breeder");
+                RaisePropertyChanged("Gender");
             }
         }
 
@@ -92,22 +114,8 @@ namespace BOXR.UI.ViewModels.EntityViewModels
             }
         }
 
-        private double? _inbreedingCoefficient;
-        public double? InbreedingCoefficient
-        {
-            get { return _inbreedingCoefficient; }
-            set
-            {
-                if (InbreedingCoefficient != value)
-                {
-                    _inbreedingCoefficient = value;
-                }
-                RaisePropertyChanged("InbreedingCoefficient");
-            }
-        }
-
-        private char? _hdGrade;
-        public char? HdGrade
+        private HdGrade _hdGrade;
+        public HdGrade HdGrade
         {
             get { return _hdGrade; }
             set
@@ -116,26 +124,12 @@ namespace BOXR.UI.ViewModels.EntityViewModels
                 {
                     _hdGrade = value;
                 }
-                RaisePropertyChanged("HdStatus");
+                RaisePropertyChanged("HdGrade");
             }
         }
 
-        private int? _hdIndex;
-        public int? HdIndex
-        {
-            get { return _hdIndex; }
-            set
-            {
-                if (HdIndex != value)
-                {
-                    _hdIndex = value;
-                }
-                RaisePropertyChanged("HdIndex");
-            }
-        }
-
-        private int? _spondylosisGrade;
-        public int? SpondylosisGrade
+        private SpondylosisGrade _spondylosisGrade;
+        public SpondylosisGrade SpondylosisGrade
         {
             get { return _spondylosisGrade; }
             set
@@ -144,12 +138,12 @@ namespace BOXR.UI.ViewModels.EntityViewModels
                 {
                     _spondylosisGrade = value;
                 }
-                RaisePropertyChanged("SpondylosisStatus");
+                RaisePropertyChanged("SpondylosisGrade");
             }
         }
 
-        private int? _heartGrade;
-        public int? HeartGrade
+        private HeartGrade _heartGrade;
+        public HeartGrade HeartGrade
         {
             get { return _heartGrade; }
             set
@@ -158,7 +152,7 @@ namespace BOXR.UI.ViewModels.EntityViewModels
                 {
                     _heartGrade = value;
                 }
-                RaisePropertyChanged("HeartStatus");
+                RaisePropertyChanged("HeartGrade");
             }
         }
 
@@ -176,7 +170,7 @@ namespace BOXR.UI.ViewModels.EntityViewModels
             }
         }
 
-        private bool _isAlive;
+        private bool _isAlive = true;
         public bool IsAlive
         {
             get { return _isAlive; }

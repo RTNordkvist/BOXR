@@ -68,7 +68,7 @@ namespace BOXR.UI.ViewModels
             searchDogViewModel.NavigateToDogProfileCommand = new RelayCommand(d =>
             {
                 var viewModel = (DogProfileViewModel)PageViewModels.First(x => x.GetType() == typeof(DogProfileViewModel));
-                viewModel.Dog = (DogDTO)d;
+                viewModel.LoadDog(((DogDTO)d).Id);
                 ChangeViewModel(viewModel);
             });
             PageViewModels.Add(searchDogViewModel);
@@ -78,12 +78,12 @@ namespace BOXR.UI.ViewModels
             registerDogViewModel.NavigateToDogProfileCommand = new RelayCommand(d =>
             {
                 var viewModel = (DogProfileViewModel)PageViewModels.First(x => x.GetType() == typeof(DogProfileViewModel));
-                viewModel.Dog = (DogDTO)d;
+                viewModel.LoadDog(((DogDTO)d).Id);
                 ChangeViewModel(viewModel);
             });
             PageViewModels.Add(registerDogViewModel);
 
-            PageViewModels.Add(new DogProfileViewModel());
+            PageViewModels.Add(new DogProfileViewModel(dogRepository));
 
             CurrentViewModel = PageViewModels.First(x => x.GetType() == typeof(HomeViewModel));
 

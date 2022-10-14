@@ -35,11 +35,11 @@
         <StackPanel DockPanel.Dock="Top" Background="#367588" Orientation="Horizontal" Height="50">
             <Button Command="{Binding NavigateHomeCommand}"
                     Style="{StaticResource MenuButtonStyle}"
-                    FontSize="20" FontWeight="Bold" 
+                    FontSize="26" FontWeight="Bold" 
                     MinWidth="125">
                 <Button.Content>
                     <Grid>
-                        <TextBlock Text="BOXR" Padding="10" />
+                        <TextBlock Text="BOXR" Padding="10, 0, 25, 0" />
                     </Grid>
                 </Button.Content>
             </Button>
@@ -56,7 +56,7 @@
                             <Button Style="{StaticResource MenuButtonStyle}" 
                                     Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
                                     CommandParameter="{Binding }"
-                                    Padding="10, 15">
+                                    Padding="10, 0" FontSize="16">
                                 <Button.Content>
                                     <Grid>
                                         <TextBlock Text="{Binding Name}" Padding="10, 15"/>
