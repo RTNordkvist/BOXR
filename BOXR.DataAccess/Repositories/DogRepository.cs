@@ -26,9 +26,9 @@ namespace BOXR.DataAccess.Repositories
             if (!string.IsNullOrEmpty(dog.PedigreeNumber) && !string.IsNullOrEmpty(dog.Name) && !string.IsNullOrEmpty(dog.Breeder))
             {
                 string command = @"INSERT INTO Dog 
-                (PedigreeNumber, Name, BirthDate, Gender, ChipNumber, HdGrade, SpondylosisGrade, HeartGrade, Color, IsAlive, MotherPedigreeNumber, FatherPedigreeNumber, Breeder) 
+                (PedigreeNumber, Name, BirthDate, Gender, ChipNumber, HdGrade, SpondylosisGrade, HeartGrade, Color, IsAlive, MotherPedigreeNumber, FatherPedigreeNumber, Breeder, Image) 
                 VALUES 
-                (@PedigreeNumber, @Name, @BirthDate, @Gender, @ChipNumber, @HdGrade, @SpondylosisGrade, @HeartGrade, @Color, @IsAlive, @MotherPedigreeNumber, @FatherPedigreeNumber, @Breeder);
+                (@PedigreeNumber, @Name, @BirthDate, @Gender, @ChipNumber, @HdGrade, @SpondylosisGrade, @HeartGrade, @Color, @IsAlive, @MotherPedigreeNumber, @FatherPedigreeNumber, @Breeder, @Image);
                 SELECT SCOPE_IDENTITY();";
 
                 SqlConnection conn = new SqlConnection(_connectionString);
@@ -46,7 +46,8 @@ namespace BOXR.DataAccess.Repositories
                 cmd.Parameters.AddWithValue("@MotherPedigreeNumber", dog.MotherPedigreeNumber ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@FatherPedigreeNumber", dog.FatherPedigreeNumber ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Breeder", dog.Breeder ?? (object)DBNull.Value);
-                
+                cmd.Parameters.AddWithValue("@Image", dog.Image ?? (object)DBNull.Value);
+
                 conn.Open();
                 // create data adapter
                 cmd.CommandType = CommandType.Text;
@@ -156,6 +157,7 @@ namespace BOXR.DataAccess.Repositories
             dog.IsAlive = Convert.ToBoolean(rw["IsAlive"]);
             dog.MotherPedigreeNumber = string.IsNullOrEmpty(Convert.ToString(rw["MotherPedigreeNumber"])) ? null : Convert.ToString(rw["MotherPedigreeNumber"]);
             dog.FatherPedigreeNumber = string.IsNullOrEmpty(Convert.ToString(rw["FatherPedigreeNumber"])) ? null : Convert.ToString(rw["FatherPedigreeNumber"]);
+            dog.Image = string.IsNullOrEmpty(Convert.ToString(rw[nameof(Dog.Image)])) ? null : Convert.ToString(rw[nameof(Dog.Image)]);
 
             return dog;
         }

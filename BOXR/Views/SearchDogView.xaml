@@ -11,7 +11,7 @@
     <Grid>
         <Grid Margin="20, 10">
             <StackPanel>
-                <Label Content="Search for a dog" VerticalAlignment="Top" FontSize="20" Margin="0, 0, 0, 20"/>
+                <Label Content="Search for a dog" VerticalAlignment="Top" FontSize="26" Margin="0, 0, 0, 20"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"/>

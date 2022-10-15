@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace BOXR.UI.ViewModels.EntityViewModels
 {
@@ -28,6 +29,7 @@ namespace BOXR.UI.ViewModels.EntityViewModels
             MotherPedigreeNumber = dog.MotherPedigreeNumber;
             FatherPedigreeNumber = dog.FatherPedigreeNumber;
             Breeder = dog.Breeder;
+            Image = dog.Image;
         }
         public int Id { get; set; }
 
@@ -223,6 +225,18 @@ namespace BOXR.UI.ViewModels.EntityViewModels
                     _owner = value;
                     RaisePropertyChanged("Owner");
                 };
+            }
+        }
+
+        private string _image;
+
+        public string Image
+        {
+            get { return _image; }
+            set 
+            {
+                _image = value;
+                RaisePropertyChanged(nameof(Image));
             }
         }
     }

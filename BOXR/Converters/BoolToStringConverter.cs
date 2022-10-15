@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Markup;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace BOXR.UI.Converters
 {
-    [ValueConversion(typeof(DateTime), typeof(string))]
-    public class DateTimeToStringConverter : MarkupExtension, IValueConverter
+    [ValueConversion(typeof(bool), typeof(string))]
+    public class BoolToStringConverter : MarkupExtension, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value == null)
-            {
-                return string.Empty;
-            }
+            bool boolean = value == null ? false : (bool)value;
 
-            var dateTime = (DateTime)value;
-            return dateTime.ToString("D");
+            return boolean == false ? "No" : "Yes";
         }
+
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return null;

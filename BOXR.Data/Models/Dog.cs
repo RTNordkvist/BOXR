@@ -24,5 +24,6 @@ namespace BOXR.Data.Models
         public string FatherPedigreeNumber { get; set; }
         public string Owner { get; set; } // TODO foreign key, Owner is another table
         public string Breeder { get; set; } // TODO foreign key, Breeder is another table
+        public string Image { get; set; }
     }
 }

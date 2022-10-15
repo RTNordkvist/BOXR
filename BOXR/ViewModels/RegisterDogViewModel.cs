@@ -66,7 +66,8 @@ namespace BOXR.UI.ViewModels
                         MotherPedigreeNumber = Dog.MotherPedigreeNumber,
                         FatherPedigreeNumber = Dog.FatherPedigreeNumber,
                         Owner = Dog.Owner,
-                        Breeder = Dog.Breeder
+                        Breeder = Dog.Breeder,
+                        Image = Dog.Image
                     };
                     var id = DogRepository.Add(dog);
                     Dog = new DogDTO();
