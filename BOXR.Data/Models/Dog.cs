@@ -22,8 +22,11 @@ namespace BOXR.Data.Models
         public bool IsAlive { get; set; }
         public string MotherPedigreeNumber { get; set; }
         public string FatherPedigreeNumber { get; set; }
-        public string Owner { get; set; } // TODO foreign key, Owner is another table
-        public string Breeder { get; set; } // TODO foreign key, Breeder is another table
+        public string Owner { get; set; } // TODO foreign key, place Owner in another table
+        public string Breeder { get; set; } // TODO foreign key, place Breeder in another table
         public string Image { get; set; }
+        public DateTime RegisteredDate { get; set; }
+        public DateTime LastUpdated { get; set; }
+
     }
 }

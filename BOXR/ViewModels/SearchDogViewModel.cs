@@ -14,7 +14,7 @@ namespace BOXR.UI.ViewModels
 {
     public class SearchDogViewModel : BaseViewModel
     {
-        private DogRepository DogRepository { get; set; }
+        private DogRepository dogRepository { get; set; }
 
         public override string Name { get; set; } = "Search";
 
@@ -51,7 +51,7 @@ namespace BOXR.UI.ViewModels
 
         public SearchDogViewModel(DogRepository dogRepository)
         {
-            DogRepository = dogRepository;
+            this.dogRepository = dogRepository;
             SearchCriteria = new();
             Dogs = new();
         }
@@ -60,7 +60,7 @@ namespace BOXR.UI.ViewModels
         {
             Dogs.RemoveAll();
 
-            var seachresult = DogRepository.Find(SearchCriteria.PedigreeNumber, SearchCriteria.Name, SearchCriteria.Breeder)
+            var seachresult = dogRepository.Find(SearchCriteria.PedigreeNumber, SearchCriteria.Name, SearchCriteria.Breeder)
                 .Select(x => new DogDTO
                 {
                     Id = x.Id,

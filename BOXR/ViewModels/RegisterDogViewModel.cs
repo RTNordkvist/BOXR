@@ -15,7 +15,7 @@ namespace BOXR.UI.ViewModels
 {
     public class RegisterDogViewModel : BaseViewModel
     {
-        private DogRepository DogRepository { get; set; }
+        private DogRepository dogRepository { get; set; }
 
         public DogDTO _dog { get; set; }
         public DogDTO Dog
@@ -27,6 +27,8 @@ namespace BOXR.UI.ViewModels
                 RaisePropertyChanged(nameof(Dog));
             }
         }
+
+        public string ViewTitle { get; } = "Register new dog";
 
         /// <summary>
         /// Implementationen af denne sker i MainViewModel, dermed har RegisterDogViewModel ingen kendskab til hvordan man navigerer til home == loose coupling (hvilket er godt!)
@@ -41,14 +43,14 @@ namespace BOXR.UI.ViewModels
         public RegisterDogViewModel(DogRepository dogRepository)
         {
             Dog = new DogDTO();
-            DogRepository = dogRepository;
+            this.dogRepository = dogRepository;
         }
 
         public void SaveDog()
         {
             try
             {
-                var dogEntity = DogRepository.Get(Dog.PedigreeNumber);
+                var dogEntity = dogRepository.Get(Dog.PedigreeNumber);
                 if (dogEntity == null)
                 {
                     var dog = new Dog()
@@ -69,16 +71,16 @@ namespace BOXR.UI.ViewModels
                         Breeder = Dog.Breeder,
                         Image = Dog.Image
                     };
-                    var id = DogRepository.Add(dog);
+                    var id = dogRepository.Add(dog);
                     Dog = new DogDTO();
 
-                    var savedDog = DogRepository.Get(id);
+                    var savedDog = dogRepository.Get(id);
 
-                    NavigateToDogProfileCommand.Execute(new DogDTO { Id = savedDog.Id, PedigreeNumber = savedDog.PedigreeNumber, Breeder = savedDog.Breeder, Name = savedDog.Name });
+                    NavigateToDogProfileCommand.Execute(new DogDTO { Id = savedDog.Id});
                 }
                 else
                 {
-                    NavigateToDogProfileCommand.Execute(new DogDTO { Id = dogEntity.Id, PedigreeNumber = dogEntity.PedigreeNumber, Breeder = dogEntity.Breeder, Name = dogEntity.Name });
+                    NavigateToDogProfileCommand.Execute(new DogDTO { Id = dogEntity.Id});
                 }
             }
             catch

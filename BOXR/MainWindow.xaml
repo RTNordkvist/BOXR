@@ -83,6 +83,9 @@
                 <DataTemplate DataType="{x:Type models:DogProfileViewModel}">
                     <views:DogProfileView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type models:UpdateDogViewModel}">
+                    <views:RegisterDogView/>
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
     </DockPanel>

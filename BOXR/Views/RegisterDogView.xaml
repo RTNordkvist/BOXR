@@ -9,13 +9,13 @@
              d:DesignHeight="750" d:DesignWidth="1000" Background="Transparent">
     <Grid Margin="20, 10">
         <StackPanel>
-            <Label Content="Register new dog" VerticalAlignment="Top" FontSize="26" Margin="0, 0, 0, 20"/>
+            <Label Content="{Binding ViewTitle}" VerticalAlignment="Top" FontSize="26" Margin="0, 0, 0, 20"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="360"/>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="360"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -99,7 +99,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Content="Psysics" Grid.Row="0" Grid.Column="0" FontWeight="DemiBold" FontSize="18"/>
+                    <Label Content="Physique" Grid.Row="0" Grid.Column="0" FontWeight="DemiBold" FontSize="18"/>
 
                     <Label Content="Is the dog alive?" Grid.Row="1" Grid.Column="0"/>
                     <CheckBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="5, 0, 0, 0"

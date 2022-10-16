@@ -30,6 +30,7 @@ namespace BOXR.UI.ViewModels.EntityViewModels
             FatherPedigreeNumber = dog.FatherPedigreeNumber;
             Breeder = dog.Breeder;
             Image = dog.Image;
+            Owner = dog.Owner;
         }
         public int Id { get; set; }
 
