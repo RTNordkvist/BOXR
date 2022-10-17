@@ -155,17 +155,16 @@ namespace BOXR.DataAccess.Repositories
         {
             DataTable dataTable = new DataTable();
 
-            string query = @"SELECT * FROM Dog WHERE 
-                            (@pedigreeNumber IS NULL OR PedigreeNumber LIKE @pedigreeNumber) AND
-                            (@name IS NULL OR Name LIKE @name) AND
-                            (@breeder IS NULL OR Breeder LIKE @breeder)"; // kan aldrig være null, den kan være '%%'
+            string query = @"SELECT * FROM Dog WHERE
+                           (@pedigreeNumber IS NULL OR PedigreeNumber LIKE @pedigreeNumber) AND
+                           (@name IS NULL OR Name LIKE @name) AND
+                           (@breeder IS NULL OR Breeder LIKE @breeder)";
 
             SqlConnection conn = new SqlConnection(_connectionString);
             SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@pedigreeNumber", "%"+pedigreeNumber+"%");
-            cmd.Parameters.AddWithValue("@name", "%" + name + "%");
-            cmd.Parameters.AddWithValue("@breeder", "%" + breeder + "%");
-
+            cmd.Parameters.AddWithValue("@pedigreeNumber", pedigreeNumber == null ? (object)DBNull.Value : "%" + pedigreeNumber + "%");
+            cmd.Parameters.AddWithValue("@name", name == null ? (object)DBNull.Value : "%" + name + "%");
+            cmd.Parameters.AddWithValue("@breeder", breeder == null ? (object)DBNull.Value : "%" + breeder + "%");
 
             conn.Open();
 

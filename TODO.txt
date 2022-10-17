@@ -1,7 +1,6 @@
 * Evt: Tilføj registreretDato og last updated to DogProfile
 * Tilføj data til database fra Excel-ark
 
-
 * Tilføj afkom til DogProfile
 Tjek at stambogsnummer, navn og opdrætter er udfyldt i RegisterDogView og giv brugeren besked (converter)
 
