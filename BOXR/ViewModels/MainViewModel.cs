@@ -99,6 +99,12 @@ namespace BOXR.UI.ViewModels
                 viewModel.LoadDog(((DogDTO)d).Id);
                 ChangeViewModel(viewModel);
             });
+            dogProfileViewModel.NavigateToOffspringCommand = new RelayCommand(d =>
+            {
+                var viewModel = (DogProfileViewModel)PageViewModels.First(x => x.GetType() == typeof(DogProfileViewModel));
+                viewModel.LoadDog(((DogDTO)d).Id);
+                ChangeViewModel(viewModel);
+            });
             PageViewModels.Add(dogProfileViewModel);
 
             CurrentViewModel = PageViewModels.First(x => x.GetType() == typeof(HomeViewModel));

@@ -48,23 +48,24 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="265"/>
+                            <ColumnDefinition Width="265"/>
+                            <ColumnDefinition Width="265"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Pedigree Number" Grid.Column="0" Padding="8, 5, 5, 5"/>
-                        <TextBlock Text="Name" Grid.Column="1" Padding="8, 5, 5, 5"/>
-                        <TextBlock Text="Breeder" Grid.Column="2" Padding="8, 5, 5, 5"/>
+                        <TextBlock Text="Pedigree Number" Grid.Column="0" Padding="12, 5, 5, 5"/>
+                        <TextBlock Text="Name" Grid.Column="1" Padding="12, 5, 5, 5"/>
+                        <TextBlock Text="Breeder" Grid.Column="2" Padding="12, 5, 5, 5"/>
                     </Grid>
                     <Grid Grid.Row="1">
-                        <ListBox x:Name="lbdog" ItemsSource="{Binding Dogs}" SelectedItem="{Binding SelectedDog}" MinHeight="20" Margin="5, 0">
+                        <ListBox x:Name="lbdog" ItemsSource="{Binding Dogs}" SelectedItem="{Binding SelectedDog}" 
+                                 MaxHeight="450" MinHeight="20" Margin="5, 0" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Width="596">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="200"/>
-                                            <ColumnDefinition Width="200"/>
-                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="265"/>
+                                            <ColumnDefinition Width="265"/>
+                                            <ColumnDefinition Width="265"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="{Binding PedigreeNumber}" Grid.Column="0"/>
                                         <TextBlock Text="{Binding Name}" Grid.Column="1"/>

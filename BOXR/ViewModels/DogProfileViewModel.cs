@@ -18,15 +18,33 @@ namespace BOXR.UI.ViewModels
         private readonly DogRepository dogRepository;
         public override string Name { get; set; } = "Dog profile";
 
-        public DogDTO Dog { get; private set; }
+        private DogDTO _dog;
+        public DogDTO Dog
+        {
+            get => _dog;
+            private set
+            {
+                _dog = value;
+                RaisePropertyChanged(nameof(Dog));
+            }
+        }
 
         public ObservableCollection<DogDTO> Offspring { get; set; }
 
-        public DogDTO SelectedOffspring { get; set; }
-
+        private DogDTO _selectedOffspring;
+        public DogDTO SelectedOffspring
+        {
+            get => _selectedOffspring;
+            set
+            {
+                NavigateToOffspringCommand.Execute(value);
+            }
+        }
 
         public ICommand UpdateDogCommand => new RelayCommand(d => UpdateDog());
         public ICommand NavigateToUpdateDogCommand { get; set; }
+        public ICommand NavigateToOffspringCommand { get; set; }
+
 
         public DogProfileViewModel(DogRepository dogRepository)
         {
@@ -37,7 +55,6 @@ namespace BOXR.UI.ViewModels
 
         public void LoadDog(int id)
         {
-            Offspring.RemoveAll();
             var dog = dogRepository.Get(id);
             Dog = new DogDTO(dog);
             var seachresult = dogRepository.FindOffspring(Dog.PedigreeNumber)
@@ -48,6 +65,7 @@ namespace BOXR.UI.ViewModels
                     Name = x.Name
                 });
 
+            Offspring.RemoveAll();
             foreach (var offspring in seachresult)
             {
                 Offspring.Add(offspring);

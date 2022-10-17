@@ -85,14 +85,14 @@ d:DesignHeight="750" d:DesignWidth="1000" Background="Transparent">
                         <Label Content="Offspring" Grid.Row="4" Grid.Column="0" FontWeight="DemiBold" FontSize="18"/>
 
                     </Grid>
-                    <ListBox ItemsSource="{Binding Offspring}" SelectedItem="{Binding SelectedOffspring}"
+                    <ListBox ItemsSource="{Binding Path=Offspring}" SelectedItem="{Binding Path=SelectedOffspring}"
                              MaxHeight="175" MinHeight="20">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid>
+                                <Grid Width="340">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="3*"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="{Binding PedigreeNumber}" Grid.Column="0"/>
                                     <TextBlock Text="{Binding Name}" Grid.Column="1"/>
