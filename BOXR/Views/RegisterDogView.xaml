@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOXR.UI.Views" 
              xmlns:x1="clr-namespace:BOXR.UI.Converters"
+             xmlns:c="clr-namespace:BOXR.UI.ValidationRules"
              mc:Ignorable="d" 
-             d:DesignHeight="750" d:DesignWidth="1000" Background="Transparent">
+             d:DesignHeight="750" d:DesignWidth="1000" Background="white">
     <Grid Margin="20, 10">
         <StackPanel>
             <Label Content="{Binding ViewTitle}" VerticalAlignment="Top" FontSize="26" Margin="0, 0, 0, 20"/>
@@ -80,7 +81,7 @@
                 </Grid>
                 <StackPanel Grid.Column="2" Grid.Row="0">
                     <Image x:Name="profilePicture" Source="{Binding Path=Dog.Image, Converter={x1:Base64ImageToImageSourceConverter}}" Width="200" Height="200"/>
-                    <Button x:Name="selectImage" Content="Add picture" Width ="150" Foreground="white" Background="#367588" Click="Button_Click" />
+                    <Button x:Name="selectImage" Content="Add picture" Width ="150" Foreground="white" Background="#367588" Click="SelectImage" />
                 </StackPanel>
 
                 <Grid Grid.Column="2" Grid.Row="1" Margin="0, 20, 0, 0">
@@ -141,15 +142,18 @@
                           SelectedValue="{Binding Path=Dog.HeartGrade}" />
                 </Grid>
                 <Grid Grid.Column="2" Grid.Row="2">
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Button Content="Clear" 
+                    <StackPanel HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Clear" 
                         Command="{Binding ClearDogCommand}"
                         Grid.Row="7"
-                        Width="100" Height="30" HorizontalAlignment="Right" Foreground="white" Background="#367588" Margin="20, 20"/>
-                        <Button Content="Save" 
+                        Width="100" Height="30" HorizontalAlignment="Right" Foreground="white" Background="#367588" Margin="20, 20, 20, 10"/>
+                            <Button Content="Save" 
                         Command="{Binding SaveDogCommand}"
                         Grid.Row="7"
-                        Width="100" Height="30" HorizontalAlignment="Right" Foreground="white" Background="#367588" Margin="5"/>
+                        Width="100" Height="30" HorizontalAlignment="Right" Foreground="white" Background="#367588" Margin="20, 20, 5, 10"/>
+                        </StackPanel>
+                        <TextBlock Foreground="Red" Text="{Binding ErrorText}" Margin="5, 0" HorizontalAlignment="Right"/>
                     </StackPanel>
                 </Grid>
             </Grid>

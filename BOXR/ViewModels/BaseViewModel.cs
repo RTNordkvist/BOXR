@@ -13,7 +13,7 @@ namespace BOXR.UI.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public abstract string Name { get; set; }
+        public abstract string Name { get; }
 
         internal void RaisePropertyChanged(string property)
         {

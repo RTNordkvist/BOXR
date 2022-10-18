@@ -12,7 +12,7 @@ namespace BOXR.UI.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public override string Name { get; set; } = "Main Window";
+        public override string Name { get; } = "Main Window";
 
         public List<BaseViewModel> PageViewModels { get; private set; } = new();
 
@@ -74,7 +74,7 @@ namespace BOXR.UI.ViewModels
             PageViewModels.Add(searchDogViewModel);
 
             var registerDogViewModel = new RegisterDogViewModel(dogRepository);
-            registerDogViewModel.NavigateHomeCommand = new RelayCommand(d => ChangeViewModel(PageViewModels.First(x => x.GetType() == typeof(HomeViewModel))));
+            //registerDogViewModel.NavigateHomeCommand = new RelayCommand(d => ChangeViewModel(PageViewModels.First(x => x.GetType() == typeof(HomeViewModel))));
             registerDogViewModel.NavigateToDogProfileCommand = new RelayCommand(d =>
             {
                 var viewModel = (DogProfileViewModel)PageViewModels.First(x => x.GetType() == typeof(DogProfileViewModel));

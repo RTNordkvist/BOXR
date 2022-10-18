@@ -16,7 +16,7 @@ namespace BOXR.UI.ViewModels
     {
         private DogRepository dogRepository { get; set; }
 
-        public override string Name { get; set; } = "Search";
+        public override string Name { get; } = "Search";
 
 
         private SearchDogDTO _searchCriteria;

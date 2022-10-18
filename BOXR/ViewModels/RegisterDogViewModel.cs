@@ -17,7 +17,7 @@ namespace BOXR.UI.ViewModels
     {
         private DogRepository dogRepository { get; set; }
 
-        public DogDTO _dog { get; set; }
+        private DogDTO _dog;
         public DogDTO Dog
         {
             get => _dog;
@@ -28,22 +28,42 @@ namespace BOXR.UI.ViewModels
             }
         }
 
+        private string errorText;
+        public string ErrorText
+        {
+            get { return errorText; }
+            set 
+            { 
+                errorText = value;
+                RaisePropertyChanged(nameof(ErrorText));
+            }
+        }
+
+
         public string ViewTitle { get; } = "Register new dog";
 
         /// <summary>
         /// Implementationen af denne sker i MainViewModel, dermed har RegisterDogViewModel ingen kendskab til hvordan man navigerer til home == loose coupling (hvilket er godt!)
         /// </summary>
-        public ICommand NavigateHomeCommand { get; set; }
+        //public ICommand NavigateHomeCommand { get; set; }
         public ICommand NavigateToDogProfileCommand { get; set; }
-        public ICommand SaveDogCommand => new RelayCommand(d => SaveDog());
+        public ICommand SaveDogCommand => new RelayCommand(d => SaveDog(), d => CanSaveDog());
         public ICommand ClearDogCommand => new RelayCommand(d => ClearDog());
 
-        public override string Name { get; set; } = "Register";
+        public override string Name { get; } = "Register";
 
         public RegisterDogViewModel(DogRepository dogRepository)
         {
             Dog = new DogDTO();
             this.dogRepository = dogRepository;
+        }
+
+        public bool CanSaveDog()
+        {
+            if (Dog == null)
+                return false;
+
+            return !string.IsNullOrWhiteSpace(Dog.PedigreeNumber) && !string.IsNullOrWhiteSpace(Dog.Name);
         }
 
         public void SaveDog()
@@ -80,12 +100,13 @@ namespace BOXR.UI.ViewModels
                 }
                 else
                 {
-                    NavigateToDogProfileCommand.Execute(new DogDTO { Id = dogEntity.Id});
+                    throw new Exception("The pedigree number already exists in the system");
+                    //NavigateToDogProfileCommand.Execute(new DogDTO { Id = dogEntity.Id});
                 }
             }
-            catch
+            catch (Exception e)
             {
-                // sæt error flag til true
+                ErrorText = e.Message;
             }
         }
 

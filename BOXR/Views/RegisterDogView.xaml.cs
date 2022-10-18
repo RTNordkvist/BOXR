@@ -27,7 +27,7 @@ namespace BOXR.UI.Views
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SelectImage(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openDialog = new();
             openDialog.Filter = "Image files|*.bmp;*.jpg;*.png";

@@ -14,11 +14,11 @@ namespace BOXR.DataAccess.Repositories
 {
     public class DogRepository
     {
-        private readonly string _connectionString;
+        private readonly string connectionString;
 
         public DogRepository(string connectionString)
         {
-            _connectionString = connectionString;
+            this.connectionString = connectionString;
         }
 
         public int Add(Dog dog)
@@ -31,7 +31,7 @@ namespace BOXR.DataAccess.Repositories
                 (@PedigreeNumber, @Name, @BirthDate, @Gender, @ChipNumber, @HdGrade, @SpondylosisGrade, @HeartGrade, @Color, @IsAlive, @MotherPedigreeNumber, @FatherPedigreeNumber, @Breeder, @Owner, @Image, @RegisteredDate, @LastUpdated);
                 SELECT SCOPE_IDENTITY();";
 
-                SqlConnection conn = new SqlConnection(_connectionString);
+                SqlConnection conn = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand(command, conn);
                 cmd.Parameters.AddWithValue("@PedigreeNumber", dog.PedigreeNumber ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Name", dog.Name ?? (object)DBNull.Value);
@@ -74,7 +74,7 @@ namespace BOXR.DataAccess.Repositories
                 PedigreeNumber=@PedigreeNumber, Name=@Name, BirthDate=@BirthDate, Gender=@Gender, ChipNumber=@ChipNumber, HdGrade=@HdGrade, SpondylosisGrade=@SpondylosisGrade, HeartGrade=@HeartGrade, Color=@Color, IsAlive=@IsAlive, MotherPedigreeNumber=@MotherPedigreeNumber, FatherPedigreeNumber=@FatherPedigreeNumber, Breeder=@Breeder, Owner=@Owner, Image=@Image, LastUpdated=@LastUpdated
                 WHERE Id=@Id;";
 
-                SqlConnection conn = new SqlConnection(_connectionString);
+                SqlConnection conn = new SqlConnection(connectionString);
                 SqlCommand cmd = new SqlCommand(command, conn);
                 cmd.Parameters.AddWithValue("@Id", dog.Id);
                 cmd.Parameters.AddWithValue("@PedigreeNumber", dog.PedigreeNumber ?? (object)DBNull.Value);
@@ -113,7 +113,7 @@ namespace BOXR.DataAccess.Repositories
 
             string query = "SELECT * FROM Dog WHERE PedigreeNumber = @pedigreeNumber";
 
-            SqlConnection conn = new SqlConnection(_connectionString);
+            SqlConnection conn = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@pedigreeNumber", pedigreeNumber);
             conn.Open();
@@ -135,7 +135,7 @@ namespace BOXR.DataAccess.Repositories
 
             string query = "SELECT * FROM Dog WHERE Id = @id";
 
-            SqlConnection conn = new SqlConnection(_connectionString);
+            SqlConnection conn = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@id", id); //Add og AddWithValue?
             conn.Open();
@@ -160,7 +160,7 @@ namespace BOXR.DataAccess.Repositories
                            (@name IS NULL OR Name LIKE @name) AND
                            (@breeder IS NULL OR Breeder LIKE @breeder)";
 
-            SqlConnection conn = new SqlConnection(_connectionString);
+            SqlConnection conn = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@pedigreeNumber", pedigreeNumber == null ? (object)DBNull.Value : "%" + pedigreeNumber + "%");
             cmd.Parameters.AddWithValue("@name", name == null ? (object)DBNull.Value : "%" + name + "%");
@@ -191,7 +191,7 @@ namespace BOXR.DataAccess.Repositories
             string query = @"SELECT * FROM Dog WHERE 
                             (MotherPedigreeNumber = @pedigreeNumber OR FatherPedigreeNumber = @pedigreeNumber)";
 
-            SqlConnection conn = new SqlConnection(_connectionString);
+            SqlConnection conn = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@pedigreeNumber", pedigreeNumber);
 

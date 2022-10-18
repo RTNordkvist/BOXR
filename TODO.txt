@@ -1,14 +1,9 @@
 * Evt: Tilføj registreretDato og last updated to DogProfile
 
-* Tilføj afkom til DogProfile
-Tjek at stambogsnummer, navn og opdrætter er udfyldt i RegisterDogView og giv brugeren besked (converter)
-
 Tilføj systemdokumentation (Domænemodel, Use Cases, DCD, SD og SSD for RegisterDog)
 Tilføj stambogsvisning
 Tilføj muligheden for at navigere til en ny hund fra stambogen
 Tilføj mouseover på hunde i stamtræet
 
 Spørg Lene hvad der forventes af systemdokumentation
-Genskab table med non-nullable date(times?)?
-
 

@@ -9,6 +9,6 @@ namespace BOXR.UI.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
-        public override string Name { get; set; } = "Home";
+        public override string Name { get; } = "Home";
     }
 }

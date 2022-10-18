@@ -31,7 +31,7 @@ namespace BOXR.UI.ViewModels
         public ICommand NavigateToDogProfileCommand { get; set; }
         public ICommand SaveDogCommand => new RelayCommand(d => SaveDog());
 
-        public override string Name { get; set; } = "Update";
+        public override string Name { get; } = "Update";
 
         public UpdateDogViewModel(DogRepository dogRepository)
         {

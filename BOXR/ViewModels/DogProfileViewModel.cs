@@ -16,7 +16,7 @@ namespace BOXR.UI.ViewModels
     public class DogProfileViewModel : BaseViewModel
     {
         private readonly DogRepository dogRepository;
-        public override string Name { get; set; } = "Dog profile";
+        public override string Name { get; } = "Dog profile";
 
         private DogDTO _dog;
         public DogDTO Dog
