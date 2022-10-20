@@ -41,9 +41,9 @@ namespace BOXR.UI.ViewModels
             }
         }
 
-        public ICommand UpdateDogCommand => new RelayCommand(d => UpdateDog());
         public ICommand NavigateToUpdateDogCommand { get; set; }
         public ICommand NavigateToOffspringCommand { get; set; }
+        public ICommand NavigateToParentCommand { get; set; }
 
 
         public DogProfileViewModel(DogRepository dogRepository)
@@ -58,12 +58,7 @@ namespace BOXR.UI.ViewModels
             var dog = dogRepository.Get(id);
             Dog = new DogDTO(dog);
             var seachresult = dogRepository.FindOffspring(Dog.PedigreeNumber)
-                .Select(x => new DogDTO
-                {
-                    Id = x.Id,
-                    PedigreeNumber = x.PedigreeNumber,
-                    Name = x.Name
-                });
+                .Select(x => new DogDTO(x));
 
             Offspring.RemoveAll();
             foreach (var offspring in seachresult)
@@ -72,9 +67,23 @@ namespace BOXR.UI.ViewModels
             }
         }
 
-        public void UpdateDog()
+        public void LoadDog(string pedigreeNumber)
         {
-            NavigateToUpdateDogCommand.Execute(Dog);
+            var dog = dogRepository.Get(pedigreeNumber);
+            if (dog == null)
+            {
+                return;
+            }
+
+            Dog = new DogDTO(dog);
+            var seachresult = dogRepository.FindOffspring(Dog.PedigreeNumber)
+                .Select(x => new DogDTO(x));
+
+            Offspring.RemoveAll();
+            foreach (var offspring in seachresult)
+            {
+                Offspring.Add(offspring);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BOXR.DataAccess.Repositories;
+using BOXR.Domain;
 using BOXR.UI.Commands;
 using BOXR.UI.ViewModels.EntityViewModels;
 using System;
@@ -30,7 +31,8 @@ namespace BOXR.UI.ViewModels
         }
 
         private ICommand _navigateHomeCommand;
-        public ICommand NavigateHomeCommand { 
+        public ICommand NavigateHomeCommand
+        {
             get
             {
                 if (_navigateHomeCommand == null)
@@ -41,7 +43,7 @@ namespace BOXR.UI.ViewModels
                 }
 
                 return _navigateHomeCommand;
-            } 
+            }
         }
 
         private ICommand _changePageCommand;
@@ -62,6 +64,8 @@ namespace BOXR.UI.ViewModels
 
         public MainViewModel(DogRepository dogRepository)
         {
+            new InbreedingCalculator("20382/89", 3, dogRepository);
+
             PageViewModels.Add(new HomeViewModel());
 
             var searchDogViewModel = new SearchDogViewModel(dogRepository);
@@ -104,6 +108,15 @@ namespace BOXR.UI.ViewModels
                 var viewModel = (DogProfileViewModel)PageViewModels.First(x => x.GetType() == typeof(DogProfileViewModel));
                 viewModel.LoadDog(((DogDTO)d).Id);
                 ChangeViewModel(viewModel);
+            });
+            dogProfileViewModel.NavigateToParentCommand = new RelayCommand(d =>
+            {
+                var viewModel = (DogProfileViewModel)PageViewModels.First(x => x.GetType() == typeof(DogProfileViewModel));
+                if (d != null)
+                {
+                    viewModel.LoadDog(d.ToString());
+                    ChangeViewModel(viewModel);
+                }
             });
             PageViewModels.Add(dogProfileViewModel);
 

@@ -43,6 +43,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BOXR.DataAccess\BOXR.DataAccess.csproj" />
+    <ProjectReference Include="..\BOXR.Domain\BOXR.Domain.csproj" />
   </ItemGroup>
 
 </Project>

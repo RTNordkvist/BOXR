@@ -1,9 +1,15 @@
-* Evt: Tilføj registreretDato og last updated to DogProfile
+Ret bug ved valg af enums
 
-Tilføj systemdokumentation (Domænemodel, Use Cases, DCD, SD og SSD for RegisterDog)
+Ret skriftstørrelse på RegisterDog
+Tilføj registreretDato og last updated to DogProfile
+Fjern Clear knap på Update Dog
+Tjek hvilke parametre, der skal være udfyldt ved registrering af hund
+
+Lave use cases og OC'er
+Ret DCD
+
 Tilføj stambogsvisning
 Tilføj muligheden for at navigere til en ny hund fra stambogen
-Tilføj mouseover på hunde i stamtræet
 
-Spørg Lene hvad der forventes af systemdokumentation
+
 

@@ -9,7 +9,7 @@
 d:DesignHeight="750" d:DesignWidth="1000" Background="Transparent">
     <Grid Margin="20, 10">
         <StackPanel>
-            <Label Content="{Binding Dog.Name}" VerticalAlignment="Top" FontSize="26" Margin="0, 0, 0, 20"/>
+            <Label Content="{Binding Dog.Name}" VerticalAlignment="Top" FontSize="28" Margin="0, 0, 0, 20"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="360"/>
@@ -39,25 +39,27 @@ d:DesignHeight="750" d:DesignWidth="1000" Background="Transparent">
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Content="Generel" Grid.Row="0" Grid.Column="0" FontWeight="DemiBold" FontSize="18"/>
+                    <Label Content="Generel" Grid.Row="0" Grid.Column="0" FontWeight="DemiBold" FontSize="20"/>
 
-                    <Label Content="Pedigree number" Grid.Row="1" Grid.Column="0"/>
-                    <TextBlock Text="{Binding Dog.PedigreeNumber}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="1"/>
+                    <Label Content="Pedigree number" Grid.Row="1" Grid.Column="0" FontSize="14"/>
+                    <TextBox Background="Transparent" BorderThickness="0" Text="{Binding Dog.PedigreeNumber}" IsReadOnly="True" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="1" FontSize="14"/>
 
-                    <Label Content="Name" Grid.Row="2" Grid.Column="0"/>
-                    <TextBlock Text="{Binding Dog.Name}" TextWrapping="Wrap" Margin ="5" Grid.Row="2" Grid.Column="1"/>
+                    <Label Content="Name" Grid.Row="2" Grid.Column="0" FontSize="14"/>
+                    <TextBox Background="Transparent" BorderThickness="0" Text="{Binding Dog.Name}" IsReadOnly="True" TextWrapping="Wrap" Margin ="5" Grid.Row="2" Grid.Column="1" FontSize="14"/>
 
-                    <Label Content="Birthdate" Grid.Row="3" Grid.Column="0"/>
-                    <TextBlock Text="{Binding Dog.BirthDate, Converter={x1:DateTimeToStringConverter}, Mode=OneTime}" TextWrapping="Wrap" Margin ="5" Grid.Row="3" Grid.Column="1"/>
+                    <Label Content="Birthdate" Grid.Row="3" Grid.Column="0" FontSize="14"/>
+                    <TextBox Background="Transparent" BorderThickness="0" Text="{Binding Dog.BirthDate, Converter={x1:DateTimeToStringConverter}}" IsReadOnly="True" TextWrapping="Wrap" Margin ="5" Grid.Row="3" Grid.Column="1" FontSize="14"/>
 
-                    <Label Content="Breeder" Grid.Row="4" Grid.Column="0"/>
-                    <TextBlock Text="{Binding Dog.Breeder}" TextWrapping="Wrap" Margin ="5" Grid.Row="4" Grid.Column="1"/>
+                    <Label Content="Chip no." Grid.Row="4" Grid.Column="0" FontSize="14"/>
+                    <TextBox Background="Transparent" BorderThickness="0" Text="{Binding Dog.ChipNumber}" IsReadOnly="True" TextWrapping="Wrap" Margin ="5" Grid.Row="4" Grid.Column="1" FontSize="14"/>
 
-                    <Label Content="Chip Number" Grid.Row="5" Grid.Column="0"/>
-                    <TextBlock Text="{Binding Dog.ChipNumber}" TextWrapping="Wrap" Margin ="5" Grid.Row="5" Grid.Column="1"/>
+                    <Label Content="Breeder" Grid.Row="5" Grid.Column="0" FontSize="14"/>
+                    <TextBox Background="Transparent" BorderThickness="0" Text="{Binding Dog.Breeder}" IsReadOnly="True" TextWrapping="Wrap" Margin ="5" Grid.Row="5" Grid.Column="1" FontSize="14"/>
 
-                    <Label Content="Owner" Grid.Row="6" Grid.Column="0"/>
+                    <Label Content="Owner" Grid.Row="6" Grid.Column="0" FontSize="14"/>
                     <TextBlock Text="" TextWrapping="Wrap" Margin ="5" Grid.Row="6" Grid.Column="1"/>
+                    <TextBox Background="Transparent" BorderThickness="0" Text="{Binding Dog.Owner}" IsReadOnly="True" TextWrapping="Wrap" Margin ="5" Grid.Row="6" Grid.Column="1" FontSize="14"/>
+
                 </Grid>
                 <StackPanel Grid.Column="0" Grid.Row="1">
                     <Grid Margin="0, 20, 0, 0">
@@ -74,28 +76,36 @@ d:DesignHeight="750" d:DesignWidth="1000" Background="Transparent">
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Label Content="Parents" Grid.Row="0" Grid.Column="0" FontWeight="DemiBold" FontSize="18"/>
+                        <Label Content="Parents" Grid.Row="0" Grid.Column="0" FontWeight="DemiBold" FontSize="20"/>
 
-                        <Label Content="Mother (pedigree number)" Grid.Row="1" Grid.Column="0"/>
-                        <TextBlock Text="{Binding Dog.MotherPedigreeNumber}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="1"/>
+                        <Label Content="Mother" Grid.Row="1" Grid.Column="0" FontSize="14"/>
+                        <TextBlock Text="{Binding Dog.MotherPedigreeNumber}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="1" FontSize="14" TextDecorations="Underline">
+                            <TextBlock.InputBindings>
+                                <MouseBinding Command="{Binding NavigateToParentCommand}" CommandParameter="{Binding Dog.MotherPedigreeNumber}" MouseAction="LeftClick" />
+                            </TextBlock.InputBindings>
+                        </TextBlock>
 
-                        <Label Content="Father (pedigree number)" Grid.Row="2" Grid.Column="0"/>
-                        <TextBlock Text="{Binding Dog.FatherPedigreeNumber}" TextWrapping="Wrap" Margin ="5" Grid.Row="2" Grid.Column="1"/>
+                        <Label Content="Father" Grid.Row="2" Grid.Column="0" FontSize="14" />
+                        <TextBlock Text="{Binding Dog.FatherPedigreeNumber}" TextWrapping="Wrap" Margin ="5" Grid.Row="2" Grid.Column="1" FontSize="14" TextDecorations="Underline">
+                            <TextBlock.InputBindings>
+                                <MouseBinding Command="{Binding NavigateToParentCommand}" CommandParameter="{Binding Dog.FatherPedigreeNumber}" MouseAction="LeftClick" />
+                            </TextBlock.InputBindings>
+                        </TextBlock>
 
-                        <Label Content="Offspring" Grid.Row="4" Grid.Column="0" FontWeight="DemiBold" FontSize="18"/>
+                        <Label Content="Offspring" Grid.Row="4" Grid.Column="0" FontWeight="DemiBold" FontSize="20"/>
 
                     </Grid>
                     <ListBox ItemsSource="{Binding Path=Offspring}" SelectedItem="{Binding Path=SelectedOffspring}"
-                             MaxHeight="175" MinHeight="20">
+                             MaxHeight="150" MinHeight="20">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Width="340">
+                                <Grid Width="320">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*"/>
                                         <ColumnDefinition Width="3*"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding PedigreeNumber}" Grid.Column="0"/>
-                                    <TextBlock Text="{Binding Name}" Grid.Column="1"/>
+                                    <TextBlock Text="{Binding PedigreeNumber}" Grid.Column="0" FontSize="14"/>
+                                    <TextBlock Text="{Binding Name}" Grid.Column="1" FontSize="14"/>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -120,28 +130,28 @@ d:DesignHeight="750" d:DesignWidth="1000" Background="Transparent">
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Content="Physique" Grid.Row="0" Grid.Column="0" FontWeight="DemiBold" FontSize="18"/>
+                    <Label Content="Physique" Grid.Row="0" Grid.Column="0" FontWeight="DemiBold" FontSize="20"/>
 
-                    <Label Content="Is the dog alive?" Grid.Row="1" Grid.Column="0"/>
-                    <TextBlock Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Dog.IsAlive, Converter={x1:BoolToStringConverter}, Mode=OneTime}"/>
+                    <Label Content="Is the dog alive?" Grid.Row="1" Grid.Column="0" FontSize="14"/>
+                    <TextBlock Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Dog.IsAlive, Converter={x1:BoolToStringConverter}}" FontSize="14"/>
 
-                    <Label Content="Gender" Grid.Row="2" Grid.Column="0"/>
-                    <TextBlock Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Dog.Gender, Converter={x1:EnumToStringConverter}, Mode=OneTime}"/>
+                    <Label Content="Gender" Grid.Row="2" Grid.Column="0" FontSize="14"/>
+                    <TextBlock Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Dog.Gender, Converter={x1:EnumToStringConverter}}" FontSize="14"/>
 
-                    <Label Content="Color" Grid.Row="3" Grid.Column="0"/>
-                    <TextBlock Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Dog.Color, Converter={x1:EnumToStringConverter}, Mode=OneTime}"/>
+                    <Label Content="Color" Grid.Row="3" Grid.Column="0" FontSize="14"/>
+                    <TextBlock Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Dog.Color, Converter={x1:EnumToStringConverter}}" FontSize="14"/>
 
-                    <Label Content="HD grade" Grid.Row="4" Grid.Column="0"/>
-                    <TextBlock Margin="5" Grid.Row="4" Grid.Column="1" Text="{Binding Path=Dog.HdGrade, Converter={x1:EnumToStringConverter}, Mode=OneTime}"/>
+                    <Label Content="HD grade" Grid.Row="4" Grid.Column="0" FontSize="14"/>
+                    <TextBlock Margin="5" Grid.Row="4" Grid.Column="1" Text="{Binding Path=Dog.HdGrade, Converter={x1:EnumToStringConverter}}" FontSize="14"/>
 
-                    <Label Content="Spondylosis grade" Grid.Row="5" Grid.Column="0"/>
-                    <TextBlock Margin="5" Grid.Row="5" Grid.Column="1" Text="{Binding Path=Dog.SpondylosisGrade, Converter={x1:EnumToStringConverter}, Mode=OneTime}"/>
+                    <Label Content="Spondylosis grade" Grid.Row="5" Grid.Column="0" FontSize="14"/>
+                    <TextBlock Margin="5" Grid.Row="5" Grid.Column="1" Text="{Binding Path=Dog.SpondylosisGrade, Converter={x1:EnumToStringConverter}}" FontSize="14"/>
 
-                    <Label Content="Heart grade" Grid.Row="6" Grid.Column="0"/>
-                    <TextBlock Margin="5" Grid.Row="6" Grid.Column="1" Text="{Binding Path=Dog.HeartGrade, Converter={x1:EnumToStringConverter}, Mode=OneTime}"/>
+                    <Label Content="Heart grade" Grid.Row="6" Grid.Column="0" FontSize="14"/>
+                    <TextBlock Margin="5" Grid.Row="6" Grid.Column="1" Text="{Binding Path=Dog.HeartGrade, Converter={x1:EnumToStringConverter}}"/>
 
-                    <Button Content="Update" 
-                        Command="{Binding UpdateDogCommand}"
+                    <Button Content="Update" FontSize="14" 
+                        Command="{Binding NavigateToUpdateDogCommand}" CommandParameter="{Binding Dog}"
                         Grid.Row="7" Grid.Column="1"
                         Width="100" Height="30" HorizontalAlignment="Right" Foreground="white" Background="#367588" Margin="5, 20"/>
                 </Grid>

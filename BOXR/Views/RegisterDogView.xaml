@@ -7,7 +7,7 @@
              xmlns:x1="clr-namespace:BOXR.UI.Converters"
              xmlns:c="clr-namespace:BOXR.UI.ValidationRules"
              mc:Ignorable="d" 
-             d:DesignHeight="750" d:DesignWidth="1000" Background="white">
+             d:DesignHeight="750" d:DesignWidth="1000" Background="Transparent">
     <Grid Margin="20, 10">
         <StackPanel>
             <Label Content="{Binding ViewTitle}" VerticalAlignment="Top" FontSize="26" Margin="0, 0, 0, 20"/>
@@ -51,11 +51,11 @@
                     <Label Content="Birthdate" Grid.Row="3" Grid.Column="0"/>
                     <DatePicker SelectedDate="{Binding Dog.BirthDate}" Margin="5" Grid.Row="3" Grid.Column="1"/>
 
-                    <Label Content="Breeder*" Grid.Row="4" Grid.Column="0"/>
-                    <TextBox Text="{Binding Dog.Breeder}" TextWrapping="Wrap" Margin ="5" Grid.Row="4" Grid.Column="1" Height="20"/>
+                    <Label Content="Chip No." Grid.Row="4" Grid.Column="0"/>
+                    <TextBox Text="{Binding Dog.ChipNumber}" TextWrapping="Wrap" Margin ="5" Grid.Row="4" Grid.Column="1" Height="20"/>
 
-                    <Label Content="Chip Number" Grid.Row="5" Grid.Column="0"/>
-                    <TextBox Text="{Binding Dog.ChipNumber}" TextWrapping="Wrap" Margin ="5" Grid.Row="5" Grid.Column="1" Height="20"/>
+                    <Label Content="Breeder*" Grid.Row="5" Grid.Column="0"/>
+                    <TextBox Text="{Binding Dog.Breeder}" TextWrapping="Wrap" Margin ="5" Grid.Row="5" Grid.Column="1" Height="20"/>
 
                     <Label Content="Owner" Grid.Row="6" Grid.Column="0"/>
                     <TextBox Text="" TextWrapping="Wrap" Margin ="5" Grid.Row="6" Grid.Column="1" Height="20"/>
@@ -108,35 +108,35 @@
 
                     <Label Content="Gender" Grid.Row="2" Grid.Column="0"/>
                     <ComboBox Name="cmbGender" Margin="5" Grid.Row="2" Grid.Column="1" Height="20"
-                          ItemsSource="{Binding Path=Dog.Gender, Converter={x1:EnumToCollectionConverter}, Mode=OneTime}"
+                          ItemsSource="{Binding Path=Dog.Gender, Converter={x1:EnumToCollectionConverter}}"
                           SelectedValuePath="Value"
                           DisplayMemberPath="Description"
                           SelectedValue="{Binding Path=Dog.Gender}" />
 
                     <Label Content="Color" Grid.Row="3" Grid.Column="0"/>
                     <ComboBox Name="cmbColors" Margin="5" Grid.Row="3" Grid.Column="1" Height="20"
-                          ItemsSource="{Binding Path=Dog.Color, Converter={x1:EnumToCollectionConverter}, Mode=OneTime}"
+                          ItemsSource="{Binding Path=Dog.Color, Converter={x1:EnumToCollectionConverter}}"
                           SelectedValuePath="Value"
                           DisplayMemberPath="Description"
                           SelectedValue="{Binding Path=Dog.Color}" />
 
                     <Label Content="HD grade" Grid.Row="4" Grid.Column="0"/>
                     <ComboBox Name="cmbHdGrade1" Margin="5" Grid.Row="4" Grid.Column="1" Height="20"
-                          ItemsSource="{Binding Path=Dog.HdGrade, Converter={x1:EnumToCollectionConverter}, Mode=OneTime}"
+                          ItemsSource="{Binding Path=Dog.HdGrade, Converter={x1:EnumToCollectionConverter}}"
                           SelectedValuePath="Value"
                           DisplayMemberPath="Description"
                           SelectedValue="{Binding Path=Dog.HdGrade}" />
 
                     <Label Content="Spondylosis grade" Grid.Row="5" Grid.Column="0"/>
                     <ComboBox Name="cmbSponGrade" Margin="5" Grid.Row="5" Grid.Column="1" Height="20"
-                          ItemsSource="{Binding Path=Dog.SpondylosisGrade, Converter={x1:EnumToCollectionConverter}, Mode=OneTime}"
+                          ItemsSource="{Binding Path=Dog.SpondylosisGrade, Converter={x1:EnumToCollectionConverter}}"
                           SelectedValuePath="Value"
                           DisplayMemberPath="Description"
                           SelectedValue="{Binding Path=Dog.SpondylosisGrade}" />
 
                     <Label Content="Heart status" Grid.Row="6" Grid.Column="0"/>
                     <ComboBox Name="cmbHeartGrade" Margin="5" Grid.Row="6" Grid.Column="1" Height="20"
-                          ItemsSource="{Binding Path=Dog.HeartGrade, Converter={x1:EnumToCollectionConverter}, Mode=OneTime}"
+                          ItemsSource="{Binding Path=Dog.HeartGrade, Converter={x1:EnumToCollectionConverter}}"
                           SelectedValuePath="Value"
                           DisplayMemberPath="Description"
                           SelectedValue="{Binding Path=Dog.HeartGrade}" />

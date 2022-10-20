@@ -34,7 +34,7 @@
                     <TextBox Text="{Binding SearchCriteria.Name, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="1"/>
                     <TextBox Text="{Binding SearchCriteria.Breeder, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="2"/>
                     <Button Content="Search"
-                        Command="{Binding SearchDogCommand}"
+                        Command="{Binding SearchDogCommand}" IsDefault="True"
                         Width="80" HorizontalAlignment="Center" Foreground="white" Background="#367588" Grid.Row="1" Grid.Column="3"/>
                     <Button Content="Clear"
                         Command="{Binding ClearDogCommand}"

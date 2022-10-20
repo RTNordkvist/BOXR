@@ -26,6 +26,17 @@ namespace BOXR.UI.ViewModels
             }
         }
 
+        private string errorText;
+        public string ErrorText
+        {
+            get { return errorText; }
+            set
+            {
+                errorText = value;
+                RaisePropertyChanged(nameof(ErrorText));
+            }
+        }
+
         public string ViewTitle { get; } = "Update";
 
         public ICommand NavigateToDogProfileCommand { get; set; }
@@ -73,9 +84,9 @@ namespace BOXR.UI.ViewModels
 
                 NavigateToDogProfileCommand.Execute(new DogDTO { Id = savedDog.Id });
             }
-            catch
+            catch (Exception e)
             {
-                // sæt error flag til true
+                ErrorText = e.Message;
             }
         }
     }
