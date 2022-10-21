@@ -240,5 +240,18 @@ namespace BOXR.UI.ViewModels.EntityViewModels
                 RaisePropertyChanged(nameof(Image));
             }
         }
+
+        private double _inbreedingCoefficient;
+
+        public double InbreedingCoefficient
+        {
+            get { return _inbreedingCoefficient; }
+            set 
+            { 
+                _inbreedingCoefficient = value; 
+                RaisePropertyChanged(nameof(InbreedingCoefficient));
+            }
+        }
+
     }
 }

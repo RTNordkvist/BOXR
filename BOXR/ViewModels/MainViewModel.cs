@@ -64,8 +64,6 @@ namespace BOXR.UI.ViewModels
 
         public MainViewModel(DogRepository dogRepository)
         {
-            new InbreedingCalculator("20382/89", 3, dogRepository);
-
             PageViewModels.Add(new HomeViewModel());
 
             var searchDogViewModel = new SearchDogViewModel(dogRepository);

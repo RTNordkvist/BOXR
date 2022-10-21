@@ -63,7 +63,13 @@ namespace BOXR.UI.ViewModels
             if (Dog == null)
                 return false;
 
-            return !string.IsNullOrWhiteSpace(Dog.PedigreeNumber) && !string.IsNullOrWhiteSpace(Dog.Name);
+            return !string.IsNullOrWhiteSpace(Dog.PedigreeNumber) 
+                && !string.IsNullOrWhiteSpace(Dog.Name) 
+                && Dog.BirthDate != null
+                && !string.IsNullOrEmpty(Dog.ChipNumber)
+                && !string.IsNullOrEmpty(Dog.Breeder)
+                && Dog.Gender != Gender.Undecided
+                && Dog.Color != Color.Undecided;
         }
 
         public void SaveDog()

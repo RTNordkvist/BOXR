@@ -1,0 +1,13 @@
+﻿<Window x:Class="BOXR.UI.Views.AncestorTreeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BOXR.UI.Views"
+        mc:Ignorable="d"
+        Title="BOXR Ancestor Tree" Height="Auto" Width="Auto"
+        Icon="../Resources/icon_boxer2.png">
+    <ScrollViewer Margin="20, 0" x:Name="scrollViewer" CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        
+    </ScrollViewer>
+</Window>

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BOXR.DataAccess.Repositories;
+using BOXR.UI.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +26,28 @@ namespace BOXR.UI.Views
         public DogProfileView()
         {
             InitializeComponent();
+        }
+
+        private AncestorTreeView _ancestorTreeView;
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = (DogProfileViewModel)DataContext;
+            var ancestorViewModel = new AncestorTreeViewModel(viewModel.DogRepository, viewModel.Dog.PedigreeNumber);
+            ancestorViewModel.OnDogClicked += (d) => 
+            { 
+                viewModel.LoadDog(d);
+                Application.Current.MainWindow.Activate();
+            };
+            
+            if(_ancestorTreeView == null)
+            {
+                _ancestorTreeView = new AncestorTreeView();
+            }
+            _ancestorTreeView.DataContext = ancestorViewModel;
+            _ancestorTreeView.GenerateTree(ancestorViewModel);
+            _ancestorTreeView.Show();
+            _ancestorTreeView.Activate();
         }
     }
 }

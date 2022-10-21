@@ -26,21 +26,21 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Pedigree Number" Grid.Row="0" Grid.Column="0" Padding="8, 5, 5, 5"/>
-                    <TextBlock Text="Name" Grid.Row="0" Grid.Column="1" Padding="8, 5, 5, 5"/>
-                    <TextBlock Text="Breeder" Grid.Row="0" Grid.Column="2" Padding="8, 5, 5, 5"/>
+                    <TextBlock Text="Pedigree Number" Grid.Row="0" Grid.Column="0" Padding="8, 5, 5, 5" FontSize="14"/>
+                    <TextBlock Text="Name" Grid.Row="0" Grid.Column="1" Padding="8, 5, 5, 5" FontSize="14"/>
+                    <TextBlock Text="Breeder" Grid.Row="0" Grid.Column="2" Padding="8, 5, 5, 5" FontSize="14"/>
 
-                    <TextBox Text="{Binding SearchCriteria.PedigreeNumber, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="0"/>
-                    <TextBox Text="{Binding SearchCriteria.Name, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="1"/>
-                    <TextBox Text="{Binding SearchCriteria.Breeder, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="2"/>
+                    <TextBox Text="{Binding SearchCriteria.PedigreeNumber, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="0" FontSize="14"/>
+                    <TextBox Text="{Binding SearchCriteria.Name, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="1" FontSize="14"/>
+                    <TextBox Text="{Binding SearchCriteria.Breeder, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="2" FontSize="14"/>
                     <Button Content="Search"
                         Command="{Binding SearchDogCommand}" IsDefault="True"
-                        Width="80" HorizontalAlignment="Center" Foreground="white" Background="#367588" Grid.Row="1" Grid.Column="3"/>
+                        Width="80" HorizontalAlignment="Center" Foreground="white" Background="#367588" Grid.Row="1" Grid.Column="3" FontSize="14"/>
                     <Button Content="Clear"
                         Command="{Binding ClearDogCommand}"
-                        Width="80" HorizontalAlignment="Center" Foreground="white" Background="#367588" Grid.Row="1" Grid.Column="4"/>
+                        Width="80" HorizontalAlignment="Center" Foreground="white" Background="#367588" Grid.Row="1" Grid.Column="4" FontSize="14"/>
                 </Grid>
-                <Label Content="Search results" VerticalAlignment="Top" FontSize="20" Margin="0, 20, 0, 0"/>
+                <Label Content="Search results" VerticalAlignment="Top" FontSize="20" Margin="0, 20, 0, 0" />
                 <Grid HorizontalAlignment="Left">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -52,9 +52,9 @@
                             <ColumnDefinition Width="265"/>
                             <ColumnDefinition Width="265"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Pedigree Number" Grid.Column="0" Padding="12, 5, 5, 5"/>
-                        <TextBlock Text="Name" Grid.Column="1" Padding="12, 5, 5, 5"/>
-                        <TextBlock Text="Breeder" Grid.Column="2" Padding="12, 5, 5, 5"/>
+                        <TextBlock Text="Pedigree Number" Grid.Column="0" Padding="12, 5, 5, 5" FontSize="14"/>
+                        <TextBlock Text="Name" Grid.Column="1" Padding="12, 5, 5, 5" FontSize="14"/>
+                        <TextBlock Text="Breeder" Grid.Column="2" Padding="12, 5, 5, 5" FontSize="14"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <ListBox x:Name="lbdog" ItemsSource="{Binding Dogs}" SelectedItem="{Binding SelectedDog}" 
@@ -67,9 +67,9 @@
                                             <ColumnDefinition Width="265"/>
                                             <ColumnDefinition Width="265"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="{Binding PedigreeNumber}" Grid.Column="0"/>
-                                        <TextBlock Text="{Binding Name}" Grid.Column="1"/>
-                                        <TextBlock Text="{Binding Breeder}" Grid.Column="2"/>
+                                        <TextBlock Text="{Binding PedigreeNumber}" Grid.Column="0" FontSize="14"/>
+                                        <TextBlock Text="{Binding Name}" Grid.Column="1" FontSize="14"/>
+                                        <TextBlock Text="{Binding Breeder}" Grid.Column="2" FontSize="14"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>

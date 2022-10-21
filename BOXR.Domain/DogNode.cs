@@ -9,6 +9,7 @@ namespace BOXR.Domain
 {
     public class DogNode
     {
+        public string Name { get; set; }
         public string PedigreeNumber { get; set; }
         public DogNode Mother { get; set; }
         public DogNode Father { get; set; }

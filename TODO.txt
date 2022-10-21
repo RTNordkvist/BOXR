@@ -1,9 +1,12 @@
+RegisterDog:
 Ret bug ved valg af enums
-
 Ret skriftstørrelse på RegisterDog
+Tjek hvilke parametre, der skal være udfyldt ved registrering af hund
+
+DogProfile:
+Tilføj indavlsgrad
 Tilføj registreretDato og last updated to DogProfile
 Fjern Clear knap på Update Dog
-Tjek hvilke parametre, der skal være udfyldt ved registrering af hund
 
 Lave use cases og OC'er
 Ret DCD

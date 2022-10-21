@@ -1,4 +1,5 @@
-﻿using BOXR.Data.Models;
+﻿using BOXR.Data.Enums;
+using BOXR.Data.Models;
 using BOXR.DataAccess.Repositories;
 using BOXR.UI.Commands;
 using BOXR.UI.ViewModels.EntityViewModels;
@@ -40,7 +41,7 @@ namespace BOXR.UI.ViewModels
         public string ViewTitle { get; } = "Update";
 
         public ICommand NavigateToDogProfileCommand { get; set; }
-        public ICommand SaveDogCommand => new RelayCommand(d => SaveDog());
+        public ICommand SaveDogCommand => new RelayCommand(d => SaveDog(), d => CanSaveDog());
 
         public override string Name { get; } = "Update";
 
@@ -52,6 +53,20 @@ namespace BOXR.UI.ViewModels
         public void LoadDog(int id)
         {
             Dog = new DogDTO(dogRepository.Get(id));
+        }
+
+        public bool CanSaveDog()
+        {
+            if (Dog == null)
+                return false;
+
+            return !string.IsNullOrWhiteSpace(Dog.PedigreeNumber)
+                && !string.IsNullOrWhiteSpace(Dog.Name)
+                && Dog.BirthDate != null
+                && !string.IsNullOrEmpty(Dog.ChipNumber)
+                && !string.IsNullOrEmpty(Dog.Breeder)
+                && Dog.Gender != Gender.Undecided
+                && Dog.Color != Color.Undecided;
         }
 
         public void SaveDog()

@@ -1,5 +1,6 @@
 ﻿using BOXR.Data.Models;
 using BOXR.DataAccess.Repositories;
+using BOXR.Domain;
 using BOXR.UI.Commands;
 using BOXR.UI.Extensions;
 using BOXR.UI.ViewModels.EntityViewModels;
@@ -15,7 +16,9 @@ namespace BOXR.UI.ViewModels
 {
     public class DogProfileViewModel : BaseViewModel
     {
-        private readonly DogRepository dogRepository;
+        public DogRepository DogRepository { get; private set; }
+
+        private readonly InbreedingCalculator inbreedingCalculator;
         public override string Name { get; } = "Dog profile";
 
         private DogDTO _dog;
@@ -48,16 +51,16 @@ namespace BOXR.UI.ViewModels
 
         public DogProfileViewModel(DogRepository dogRepository)
         {
-            this.dogRepository = dogRepository;
+            this.DogRepository = dogRepository;
             Dog = new();
             Offspring = new ObservableCollection<DogDTO>();
         }
 
         public void LoadDog(int id)
         {
-            var dog = dogRepository.Get(id);
+            var dog = DogRepository.Get(id);
             Dog = new DogDTO(dog);
-            var seachresult = dogRepository.FindOffspring(Dog.PedigreeNumber)
+            var seachresult = DogRepository.FindOffspring(Dog.PedigreeNumber)
                 .Select(x => new DogDTO(x));
 
             Offspring.RemoveAll();
@@ -69,15 +72,18 @@ namespace BOXR.UI.ViewModels
 
         public void LoadDog(string pedigreeNumber)
         {
-            var dog = dogRepository.Get(pedigreeNumber);
+            var dog = DogRepository.Get(pedigreeNumber);
             if (dog == null)
             {
                 return;
             }
 
             Dog = new DogDTO(dog);
-            var seachresult = dogRepository.FindOffspring(Dog.PedigreeNumber)
+            var seachresult = DogRepository.FindOffspring(Dog.PedigreeNumber)
                 .Select(x => new DogDTO(x));
+
+            InbreedingCalculator inbreedingCalculator = new InbreedingCalculator(dog.PedigreeNumber, 3, DogRepository);
+            Dog.InbreedingCoefficient = inbreedingCalculator.InbreedingCoefficient;
 
             Offspring.RemoveAll();
             foreach (var offspring in seachresult)

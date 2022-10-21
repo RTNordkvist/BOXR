@@ -59,24 +59,22 @@ namespace BOXR.Domain
             }
         }
 
-        private DogNode PopulateAncestorTree(string pedigreeNumber, DogNode child, int countGenerations, List<DogNode> listOfNodes)
+        public DogNode PopulateAncestorTree(string pedigreeNumber, DogNode child, int countGenerations, List<DogNode> listOfNodes)
         {
-            Dog rootDog = dogRepository.Get(pedigreeNumber);
-            DogNode root = new DogNode() { PedigreeNumber = pedigreeNumber, Child = child, GenerationsFromBase = countGenerations };
+            Dog rootDog = null;
+            if (pedigreeNumber != null)
+            {
+                rootDog = dogRepository.Get(pedigreeNumber);
+            }
+            DogNode root = new DogNode() { Name = rootDog?.Name, PedigreeNumber = pedigreeNumber, Child = child, GenerationsFromBase = countGenerations };
             listOfNodes.Add(root);
 
-            if (rootDog != null && countGenerations < numberOfGenerations)
+            if (countGenerations < numberOfGenerations)
             {
                 countGenerations++;
 
-                if (!string.IsNullOrWhiteSpace(rootDog.MotherPedigreeNumber))
-                {
-                    root.Mother = PopulateAncestorTree(rootDog.MotherPedigreeNumber, root, countGenerations, listOfNodes);
-                }
-                if (!string.IsNullOrWhiteSpace(rootDog.FatherPedigreeNumber))
-                {
-                    root.Father = PopulateAncestorTree(rootDog.FatherPedigreeNumber, root, countGenerations, listOfNodes);
-                }
+                root.Mother = PopulateAncestorTree(rootDog?.MotherPedigreeNumber, root, countGenerations, listOfNodes);
+                root.Father = PopulateAncestorTree(rootDog?.FatherPedigreeNumber, root, countGenerations, listOfNodes);
             }
 
             return root;

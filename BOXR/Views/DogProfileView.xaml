@@ -77,7 +77,10 @@ d:DesignHeight="750" d:DesignWidth="1000" Background="Transparent">
                         </Grid.RowDefinitions>
 
                         <Label Content="Parents" Grid.Row="0" Grid.Column="0" FontWeight="DemiBold" FontSize="20"/>
-
+                        <Button Content="Show ancestor tree" FontSize="14" 
+                            Grid.Row="0" Grid.Column="1"
+                            Width="175" Height="30" HorizontalAlignment="Center" Foreground="white" Background="#367588" VerticalAlignment="Center" Click="Button_Click"/>
+                        
                         <Label Content="Mother" Grid.Row="1" Grid.Column="0" FontSize="14"/>
                         <TextBlock Text="{Binding Dog.MotherPedigreeNumber}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="1" FontSize="14" TextDecorations="Underline">
                             <TextBlock.InputBindings>
