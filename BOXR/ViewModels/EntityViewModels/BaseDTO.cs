@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace BOXR.UI.ViewModels.EntityViewModels
 {
+    //A base view model for all data-carrying models used in presenting the UI
     public class BaseDTO : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

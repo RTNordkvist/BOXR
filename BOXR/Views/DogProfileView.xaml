@@ -71,16 +71,17 @@ d:DesignHeight="750" d:DesignWidth="1000" Background="Transparent">
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="35"/>
                             <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
                             <RowDefinition Height="20"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
                         <Label Content="Parents" Grid.Row="0" Grid.Column="0" FontWeight="DemiBold" FontSize="20"/>
-                        <Button Content="Show ancestor tree" FontSize="14" 
+                        <Button Content="Show ancestor tree" Style="{StaticResource tealButton}" 
                             Grid.Row="0" Grid.Column="1"
-                            Width="175" Height="30" HorizontalAlignment="Center" Foreground="white" Background="#367588" VerticalAlignment="Center" Click="Button_Click"/>
-                        
+                            Width="175" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OpenAncesterTree"/>
+
                         <Label Content="Mother" Grid.Row="1" Grid.Column="0" FontSize="14"/>
                         <TextBlock Text="{Binding Dog.MotherPedigreeNumber}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="1" FontSize="14" TextDecorations="Underline">
                             <TextBlock.InputBindings>
@@ -95,7 +96,10 @@ d:DesignHeight="750" d:DesignWidth="1000" Background="Transparent">
                             </TextBlock.InputBindings>
                         </TextBlock>
 
-                        <Label Content="Offspring" Grid.Row="4" Grid.Column="0" FontWeight="DemiBold" FontSize="20"/>
+                        <Label Content="Inbreeding coefficient" Grid.Row="3" Grid.Column="0" FontSize="14"/>
+                        <TextBox Background="Transparent" BorderThickness="0" Text="{Binding InbreedingCoefficient}" IsReadOnly="True" TextWrapping="Wrap" Margin ="5" Grid.Row="3" Grid.Column="1" FontSize="14"/>
+
+                        <Label Content="Offspring" Grid.Row="5" Grid.Column="0" FontWeight="DemiBold" FontSize="20"/>
 
                     </Grid>
                     <ListBox ItemsSource="{Binding Path=Offspring}" SelectedItem="{Binding Path=SelectedOffspring}"
@@ -153,10 +157,10 @@ d:DesignHeight="750" d:DesignWidth="1000" Background="Transparent">
                     <Label Content="Heart grade" Grid.Row="6" Grid.Column="0" FontSize="14"/>
                     <TextBlock Margin="5" Grid.Row="6" Grid.Column="1" Text="{Binding Path=Dog.HeartGrade, Converter={x1:EnumToStringConverter}}"/>
 
-                    <Button Content="Update" FontSize="14" 
+                    <Button Content="Update" 
                         Command="{Binding NavigateToUpdateDogCommand}" CommandParameter="{Binding Dog}"
                         Grid.Row="7" Grid.Column="1"
-                        Width="100" Height="30" HorizontalAlignment="Right" Foreground="white" Background="#367588" Margin="5, 20"/>
+                        Width="100" Height="30" HorizontalAlignment="Right" Style="{StaticResource tealButton}" Margin="5, 20"/>
                 </Grid>
             </Grid>
         </StackPanel>

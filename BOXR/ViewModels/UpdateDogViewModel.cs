@@ -39,9 +39,13 @@ namespace BOXR.UI.ViewModels
         }
 
         public string ViewTitle { get; } = "Update";
+        public string SecondButtonPurpose { get; } = "Cancel";
+
 
         public ICommand NavigateToDogProfileCommand { get; set; }
         public ICommand SaveDogCommand => new RelayCommand(d => SaveDog(), d => CanSaveDog());
+        public ICommand SecondButtonCommand => new RelayCommand(d => CancelUpdate());
+
 
         public override string Name { get; } = "Update";
 
@@ -55,6 +59,9 @@ namespace BOXR.UI.ViewModels
             Dog = new DogDTO(dogRepository.Get(id));
         }
 
+        /// <summary>
+        /// Only enables the save button when certain information have been added by the user
+        /// </summary>
         public bool CanSaveDog()
         {
             if (Dog == null)
@@ -103,6 +110,11 @@ namespace BOXR.UI.ViewModels
             {
                 ErrorText = e.Message;
             }
+        }
+
+        public void CancelUpdate()
+        {
+            NavigateToDogProfileCommand.Execute(new DogDTO { Id = Dog.Id });
         }
     }
 }

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace BOXR.UI.Extensions
 {
+    /// <summary>
+    /// Extension methods to remove elements in an observable collection
+    /// </summary>
     public static class ObservableExtensions
     {
         public static int RemoveAll<T>(this ObservableCollection<T> coll, Func<T, bool> condition)

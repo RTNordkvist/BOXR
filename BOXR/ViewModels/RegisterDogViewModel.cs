@@ -42,13 +42,11 @@ namespace BOXR.UI.ViewModels
 
         public string ViewTitle { get; } = "Register new dog";
 
-        /// <summary>
-        /// Implementationen af denne sker i MainViewModel, dermed har RegisterDogViewModel ingen kendskab til hvordan man navigerer til home == loose coupling (hvilket er godt!)
-        /// </summary>
-        //public ICommand NavigateHomeCommand { get; set; }
+        public string SecondButtonPurpose { get; } = "Clear";
+
         public ICommand NavigateToDogProfileCommand { get; set; }
         public ICommand SaveDogCommand => new RelayCommand(d => SaveDog(), d => CanSaveDog());
-        public ICommand ClearDogCommand => new RelayCommand(d => ClearDog());
+        public ICommand SecondButtonCommand => new RelayCommand(d => ClearDog());
 
         public override string Name { get; } = "Register";
 
@@ -58,6 +56,9 @@ namespace BOXR.UI.ViewModels
             this.dogRepository = dogRepository;
         }
 
+        /// <summary>
+        /// Only enables the save button when certain information have been added by the user
+        /// </summary>
         public bool CanSaveDog()
         {
             if (Dog == null)
@@ -107,7 +108,6 @@ namespace BOXR.UI.ViewModels
                 else
                 {
                     throw new Exception("The pedigree number already exists in the system");
-                    //NavigateToDogProfileCommand.Execute(new DogDTO { Id = dogEntity.Id});
                 }
             }
             catch (Exception e)

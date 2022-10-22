@@ -30,17 +30,21 @@ namespace BOXR.UI.Views
 
         private AncestorTreeView _ancestorTreeView;
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        //Get the ancestor tree and opens the window for presenting it
+        private void OpenAncesterTree(object sender, RoutedEventArgs e)
         {
             var viewModel = (DogProfileViewModel)DataContext;
             var ancestorViewModel = new AncestorTreeViewModel(viewModel.DogRepository, viewModel.Dog.PedigreeNumber);
+            
+            //Subscribes on the event that a dog is clicked on in the ancester tree and then updates the dog in DogProfileViewModel
             ancestorViewModel.OnDogClicked += (d) => 
             { 
                 viewModel.LoadDog(d);
                 Application.Current.MainWindow.Activate();
             };
             
-            if(_ancestorTreeView == null)
+            if(_ancestorTreeView == null || !Application.Current.Windows.OfType<AncestorTreeView>().Any())
             {
                 _ancestorTreeView = new AncestorTreeView();
             }

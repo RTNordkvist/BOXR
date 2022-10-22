@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BOXR.UI.ViewModels.EntityViewModels
 {
+    //Search can be done for pedigreeNumber, name or breeder
     public class SearchDogDTO : BaseDTO
     {
         private string _pedigreeNumber;

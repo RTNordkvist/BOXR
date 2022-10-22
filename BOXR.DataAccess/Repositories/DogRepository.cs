@@ -31,31 +31,33 @@ namespace BOXR.DataAccess.Repositories
                 (@PedigreeNumber, @Name, @BirthDate, @Gender, @ChipNumber, @HdGrade, @SpondylosisGrade, @HeartGrade, @Color, @IsAlive, @MotherPedigreeNumber, @FatherPedigreeNumber, @Breeder, @Owner, @Image, @RegisteredDate, @LastUpdated);
                 SELECT SCOPE_IDENTITY();";
 
-                SqlConnection conn = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand(command, conn);
-                cmd.Parameters.AddWithValue("@PedigreeNumber", dog.PedigreeNumber ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Name", dog.Name ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@BirthDate", dog.BirthDate ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Gender", dog.Gender);
-                cmd.Parameters.AddWithValue("@ChipNumber", dog.ChipNumber ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@HdGrade", dog.HdGrade);
-                cmd.Parameters.AddWithValue("@SpondylosisGrade", dog.SpondylosisGrade);
-                cmd.Parameters.AddWithValue("@HeartGrade", dog.HeartGrade);
-                cmd.Parameters.AddWithValue("@Color", dog.Color);
-                cmd.Parameters.AddWithValue("@IsAlive", dog.IsAlive);
-                cmd.Parameters.AddWithValue("@MotherPedigreeNumber", dog.MotherPedigreeNumber ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@FatherPedigreeNumber", dog.FatherPedigreeNumber ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Breeder", dog.Breeder ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Owner", dog.Owner ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Image", dog.Image ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@RegisteredDate", DateTime.Now);
-                cmd.Parameters.AddWithValue("@LastUpdated", DateTime.Now);
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand(command, conn);
+                    cmd.Parameters.AddWithValue("@PedigreeNumber", dog.PedigreeNumber ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Name", dog.Name ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@BirthDate", dog.BirthDate ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Gender", dog.Gender);
+                    cmd.Parameters.AddWithValue("@ChipNumber", dog.ChipNumber ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@HdGrade", dog.HdGrade);
+                    cmd.Parameters.AddWithValue("@SpondylosisGrade", dog.SpondylosisGrade);
+                    cmd.Parameters.AddWithValue("@HeartGrade", dog.HeartGrade);
+                    cmd.Parameters.AddWithValue("@Color", dog.Color);
+                    cmd.Parameters.AddWithValue("@IsAlive", dog.IsAlive);
+                    cmd.Parameters.AddWithValue("@MotherPedigreeNumber", dog.MotherPedigreeNumber ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@FatherPedigreeNumber", dog.FatherPedigreeNumber ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Breeder", dog.Breeder ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Owner", dog.Owner ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Image", dog.Image ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@RegisteredDate", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@LastUpdated", DateTime.Now);
 
-                conn.Open();
-                cmd.CommandType = CommandType.Text;
-                var res = cmd.ExecuteScalar();
-                conn.Close();
-                dog.Id = Convert.ToInt32(res);
+                    conn.Open();
+                    cmd.CommandType = CommandType.Text;
+                    var res = cmd.ExecuteScalar(); //returns the id (first cell in the first column in the last affected table)
+                    conn.Close();
+                    dog.Id = Convert.ToInt32(res);
+                }
             }
             else
             {
@@ -74,30 +76,32 @@ namespace BOXR.DataAccess.Repositories
                 PedigreeNumber=@PedigreeNumber, Name=@Name, BirthDate=@BirthDate, Gender=@Gender, ChipNumber=@ChipNumber, HdGrade=@HdGrade, SpondylosisGrade=@SpondylosisGrade, HeartGrade=@HeartGrade, Color=@Color, IsAlive=@IsAlive, MotherPedigreeNumber=@MotherPedigreeNumber, FatherPedigreeNumber=@FatherPedigreeNumber, Breeder=@Breeder, Owner=@Owner, Image=@Image, LastUpdated=@LastUpdated
                 WHERE Id=@Id;";
 
-                SqlConnection conn = new SqlConnection(connectionString);
-                SqlCommand cmd = new SqlCommand(command, conn);
-                cmd.Parameters.AddWithValue("@Id", dog.Id);
-                cmd.Parameters.AddWithValue("@PedigreeNumber", dog.PedigreeNumber ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Name", dog.Name ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@BirthDate", dog.BirthDate ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Gender", dog.Gender);
-                cmd.Parameters.AddWithValue("@ChipNumber", dog.ChipNumber ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@HdGrade", dog.HdGrade);
-                cmd.Parameters.AddWithValue("@SpondylosisGrade", dog.SpondylosisGrade);
-                cmd.Parameters.AddWithValue("@HeartGrade", dog.HeartGrade);
-                cmd.Parameters.AddWithValue("@Color", dog.Color);
-                cmd.Parameters.AddWithValue("@IsAlive", dog.IsAlive);
-                cmd.Parameters.AddWithValue("@MotherPedigreeNumber", dog.MotherPedigreeNumber ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@FatherPedigreeNumber", dog.FatherPedigreeNumber ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Breeder", dog.Breeder ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Owner", dog.Owner ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Image", dog.Image ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@LastUpdated", DateTime.Now);
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand(command, conn);
+                    cmd.Parameters.AddWithValue("@Id", dog.Id);
+                    cmd.Parameters.AddWithValue("@PedigreeNumber", dog.PedigreeNumber ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Name", dog.Name ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@BirthDate", dog.BirthDate ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Gender", dog.Gender);
+                    cmd.Parameters.AddWithValue("@ChipNumber", dog.ChipNumber ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@HdGrade", dog.HdGrade);
+                    cmd.Parameters.AddWithValue("@SpondylosisGrade", dog.SpondylosisGrade);
+                    cmd.Parameters.AddWithValue("@HeartGrade", dog.HeartGrade);
+                    cmd.Parameters.AddWithValue("@Color", dog.Color);
+                    cmd.Parameters.AddWithValue("@IsAlive", dog.IsAlive);
+                    cmd.Parameters.AddWithValue("@MotherPedigreeNumber", dog.MotherPedigreeNumber ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@FatherPedigreeNumber", dog.FatherPedigreeNumber ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Breeder", dog.Breeder ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Owner", dog.Owner ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Image", dog.Image ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@LastUpdated", DateTime.Now);
 
-                conn.Open();
-                cmd.CommandType = CommandType.Text;
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                    conn.Open();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
             }
             else
             {
@@ -113,17 +117,18 @@ namespace BOXR.DataAccess.Repositories
 
             string query = "SELECT * FROM Dog WHERE PedigreeNumber = @pedigreeNumber";
 
-            SqlConnection conn = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@pedigreeNumber", pedigreeNumber);
-            conn.Open();
-            // create data adapter
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            // this will query your database and return the result to your datatable
-            da.Fill(dataTable);
-            conn.Close();
-            da.Dispose();
-
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@pedigreeNumber", pedigreeNumber);
+                conn.Open();
+                // create data adapter
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // this will query the database and return the result to the datatable
+                da.Fill(dataTable);
+                conn.Close();
+                da.Dispose();
+            }
             var result = dataTable.AsEnumerable().Any() ? ConvertToDog(dataTable.AsEnumerable().First()) : null;
 
             return result;
@@ -135,16 +140,18 @@ namespace BOXR.DataAccess.Repositories
 
             string query = "SELECT * FROM Dog WHERE Id = @id";
 
-            SqlConnection conn = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@id", id); //Add og AddWithValue?
-            conn.Open();
-            // create data adapter
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            // this will query your database and return the result to your datatable
-            da.Fill(dataTable);
-            conn.Close();
-            da.Dispose();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", id);
+                conn.Open();
+                // create data adapter
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // this will query the database and return the result to the datatable
+                da.Fill(dataTable);
+                conn.Close();
+                da.Dispose();
+            }
 
             var result = dataTable.AsEnumerable().Any() ? ConvertToDog(dataTable.AsEnumerable().First()) : null;
 
@@ -160,27 +167,29 @@ namespace BOXR.DataAccess.Repositories
                            (@name IS NULL OR Name LIKE @name) AND
                            (@breeder IS NULL OR Breeder LIKE @breeder)";
 
-            SqlConnection conn = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@pedigreeNumber", pedigreeNumber == null ? (object)DBNull.Value : "%" + pedigreeNumber + "%");
-            cmd.Parameters.AddWithValue("@name", name == null ? (object)DBNull.Value : "%" + name + "%");
-            cmd.Parameters.AddWithValue("@breeder", breeder == null ? (object)DBNull.Value : "%" + breeder + "%");
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
 
-            conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@pedigreeNumber", pedigreeNumber == null ? (object)DBNull.Value : "%" + pedigreeNumber + "%");
+                cmd.Parameters.AddWithValue("@name", name == null ? (object)DBNull.Value : "%" + name + "%");
+                cmd.Parameters.AddWithValue("@breeder", breeder == null ? (object)DBNull.Value : "%" + breeder + "%");
 
-            // create data adapter
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            // this will query your database and return the result to your datatable
-            da.Fill(dataTable);
-            conn.Close();
-            da.Dispose();
+                conn.Open();
+
+                // create data adapter
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                // this will query the database and return the result to the datatable
+                da.Fill(dataTable);
+                conn.Close();
+                da.Dispose();
+            }
 
             var result = new List<Dog>();
             foreach (var rw in dataTable.AsEnumerable())
             {
                 result.Add(ConvertToDog(rw));
             }
-            // result indeholder nu alle hunde i databasen, fordi query ikke har en WHERE clause
             return result;
         }
 
@@ -199,7 +208,7 @@ namespace BOXR.DataAccess.Repositories
 
             // create data adapter
             SqlDataAdapter da = new SqlDataAdapter(cmd);
-            // this will query your database and return the result to your datatable
+            // this will query the database and return the result to the datatable
             da.Fill(dataTable);
             conn.Close();
             da.Dispose();
@@ -209,10 +218,12 @@ namespace BOXR.DataAccess.Repositories
             {
                 result.Add(ConvertToDog(rw));
             }
-            // result indeholder nu alle hunde i databasen, fordi query ikke har en WHERE clause
             return result;
         }
 
+        /// <summary>
+        /// Converts a datarow from a datatable to a model of type Dog
+        /// </summary>
         private Dog ConvertToDog(DataRow rw)
         {
             Dog dog = new();

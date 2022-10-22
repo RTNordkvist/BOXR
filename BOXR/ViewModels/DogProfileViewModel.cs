@@ -16,9 +16,11 @@ namespace BOXR.UI.ViewModels
 {
     public class DogProfileViewModel : BaseViewModel
     {
+        //Defines how many generations should be included in the calculation of the inbreeding coefficient
+        private const int ANCESTOR_GENERATIONS = 4;
+
         public DogRepository DogRepository { get; private set; }
 
-        private readonly InbreedingCalculator inbreedingCalculator;
         public override string Name { get; } = "Dog profile";
 
         private DogDTO _dog;
@@ -31,6 +33,19 @@ namespace BOXR.UI.ViewModels
                 RaisePropertyChanged(nameof(Dog));
             }
         }
+
+        private double _inbreedingCoefficient;
+
+        public double InbreedingCoefficient
+        {
+            get { return _inbreedingCoefficient; }
+            set 
+            { 
+                _inbreedingCoefficient = value;
+                RaisePropertyChanged(nameof(InbreedingCoefficient));
+            }
+        }
+
 
         public ObservableCollection<DogDTO> Offspring { get; set; }
 
@@ -60,14 +75,10 @@ namespace BOXR.UI.ViewModels
         {
             var dog = DogRepository.Get(id);
             Dog = new DogDTO(dog);
-            var seachresult = DogRepository.FindOffspring(Dog.PedigreeNumber)
-                .Select(x => new DogDTO(x));
 
-            Offspring.RemoveAll();
-            foreach (var offspring in seachresult)
-            {
-                Offspring.Add(offspring);
-            }
+            UpdateInbreedingCoefficient(dog);
+
+            LoadOffspring();
         }
 
         public void LoadDog(string pedigreeNumber)
@@ -79,12 +90,22 @@ namespace BOXR.UI.ViewModels
             }
 
             Dog = new DogDTO(dog);
+
+            UpdateInbreedingCoefficient(dog);
+
+            LoadOffspring();
+        }
+
+        private void UpdateInbreedingCoefficient(Dog dog)
+        {
+            AncestorTreeLogic ancestorTreeLogic = new AncestorTreeLogic(DogRepository);
+            InbreedingCoefficient = ancestorTreeLogic.CalculateInbreedingCoefficient(dog, ANCESTOR_GENERATIONS);
+        }
+
+        private void LoadOffspring()
+        {
             var seachresult = DogRepository.FindOffspring(Dog.PedigreeNumber)
                 .Select(x => new DogDTO(x));
-
-            InbreedingCalculator inbreedingCalculator = new InbreedingCalculator(dog.PedigreeNumber, 3, DogRepository);
-            Dog.InbreedingCoefficient = inbreedingCalculator.InbreedingCoefficient;
-
             Offspring.RemoveAll();
             foreach (var offspring in seachresult)
             {

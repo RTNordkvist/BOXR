@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace BOXR.UI.ViewModels
 {
+    // A base view model for all viewmodels connected to a view
     public abstract class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

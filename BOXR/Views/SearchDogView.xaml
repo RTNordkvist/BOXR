@@ -35,10 +35,10 @@
                     <TextBox Text="{Binding SearchCriteria.Breeder, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Margin ="5" Grid.Row="1" Grid.Column="2" FontSize="14"/>
                     <Button Content="Search"
                         Command="{Binding SearchDogCommand}" IsDefault="True"
-                        Width="80" HorizontalAlignment="Center" Foreground="white" Background="#367588" Grid.Row="1" Grid.Column="3" FontSize="14"/>
+                        Width="80" HorizontalAlignment="Center" Style="{StaticResource tealButton}" Grid.Row="1" Grid.Column="3"/>
                     <Button Content="Clear"
                         Command="{Binding ClearDogCommand}"
-                        Width="80" HorizontalAlignment="Center" Foreground="white" Background="#367588" Grid.Row="1" Grid.Column="4" FontSize="14"/>
+                        Width="80" HorizontalAlignment="Center" Style="{StaticResource tealButton}" Grid.Row="1" Grid.Column="4"/>
                 </Grid>
                 <Label Content="Search results" VerticalAlignment="Top" FontSize="20" Margin="0, 20, 0, 0" />
                 <Grid HorizontalAlignment="Left">

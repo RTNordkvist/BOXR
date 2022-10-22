@@ -15,11 +15,11 @@ namespace BOXR.UI.ViewModels
     {
         public override string Name { get; } = "Main Window";
 
-        public List<BaseViewModel> PageViewModels { get; private set; } = new();
+        public List<BaseViewModel> PageViewModels { get; private set; } = new(); //Contains all viewmodels for views displayed in the MainWindow content
 
-        public List<BaseViewModel> MenuViewModels { get; private set; } = new();
+        public List<BaseViewModel> MenuViewModels { get; private set; } = new(); //Contains viewmodels for views the can be navigated to from the top navigation bar
 
-        private BaseViewModel _currentViewModel;
+        private BaseViewModel _currentViewModel; //Viewmodel for the view currently displayed
         public BaseViewModel CurrentViewModel
         {
             get => _currentViewModel;
@@ -62,10 +62,16 @@ namespace BOXR.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// The implmentation of all navigation commands happens in MainViewModel, 
+        /// so that none of the individual viewModels know how to navigate to a different page = loose coupling
+        /// </summary>
         public MainViewModel(DogRepository dogRepository)
         {
+            //All view models with a corresponding view to be displayed as content in MainWindow are created here
             PageViewModels.Add(new HomeViewModel());
 
+            //Search Dog
             var searchDogViewModel = new SearchDogViewModel(dogRepository);
             searchDogViewModel.NavigateToDogProfileCommand = new RelayCommand(d =>
             {
@@ -75,8 +81,8 @@ namespace BOXR.UI.ViewModels
             });
             PageViewModels.Add(searchDogViewModel);
 
+            //Register Dog
             var registerDogViewModel = new RegisterDogViewModel(dogRepository);
-            //registerDogViewModel.NavigateHomeCommand = new RelayCommand(d => ChangeViewModel(PageViewModels.First(x => x.GetType() == typeof(HomeViewModel))));
             registerDogViewModel.NavigateToDogProfileCommand = new RelayCommand(d =>
             {
                 var viewModel = (DogProfileViewModel)PageViewModels.First(x => x.GetType() == typeof(DogProfileViewModel));
@@ -85,6 +91,7 @@ namespace BOXR.UI.ViewModels
             });
             PageViewModels.Add(registerDogViewModel);
 
+            //Update Dog
             var updateDogViewModel = new UpdateDogViewModel(dogRepository);
             updateDogViewModel.NavigateToDogProfileCommand = new RelayCommand(d =>
             {
@@ -94,6 +101,7 @@ namespace BOXR.UI.ViewModels
             });
             PageViewModels.Add(updateDogViewModel);
 
+            //Dog profile
             var dogProfileViewModel = new DogProfileViewModel(dogRepository);
             dogProfileViewModel.NavigateToUpdateDogCommand = new RelayCommand(d =>
             {
@@ -118,12 +126,15 @@ namespace BOXR.UI.ViewModels
             });
             PageViewModels.Add(dogProfileViewModel);
 
+            //Default view on startup is set
             CurrentViewModel = PageViewModels.First(x => x.GetType() == typeof(HomeViewModel));
 
+            //Views with links in the top menu are added to MenuViewModels
             MenuViewModels.Add(PageViewModels.First(x => x.GetType() == typeof(RegisterDogViewModel)));
             MenuViewModels.Add(PageViewModels.First(x => x.GetType() == typeof(SearchDogViewModel)));
         }
 
+        //This method defines which view should be showed as the content of the MainWindow by changing the viewmodel
         private void ChangeViewModel(BaseViewModel viewModel)
         {
             if (!PageViewModels.Contains(viewModel))

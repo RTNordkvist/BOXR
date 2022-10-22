@@ -1,18 +1,28 @@
+Generelt:
+2. Tilføj kommentarer
+3. Opret styles for xaml-elementer så det ungås at duplikere meget kode
+
 RegisterDog:
-Ret bug ved valg af enums
-Ret skriftstørrelse på RegisterDog
-Tjek hvilke parametre, der skal være udfyldt ved registrering af hund
+- DONE: Ret bug ved valg af enums
+- DONE: Tjek hvilke parametre, der skal være udfyldt ved registrering af hund
+4. Ret formateringen af en unabled button
 
 DogProfile:
-Tilføj indavlsgrad
-Tilføj registreretDato og last updated to DogProfile
-Fjern Clear knap på Update Dog
+1. Tilføj indavlsgrad
+Ret bug for offspring
+- Droppet: Tilføj registreretDato og last updated to DogProfile
+
+UpdateDog:
+- DONE: Ændr Clear knap til cancel knap
+
+AncestorTreeLogic:
+- Lav om på klassen, så metoderne er uafhængige af klassen
 
 Lave use cases og OC'er
 Ret DCD
 
-Tilføj stambogsvisning
-Tilføj muligheden for at navigere til en ny hund fra stambogen
+- DONE: Tilføj stambogsvisning
+- DONE: Tilføj muligheden for at navigere til en ny hund fra stambogen
 
 
 

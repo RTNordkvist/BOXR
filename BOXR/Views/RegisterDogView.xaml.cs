@@ -27,6 +27,7 @@ namespace BOXR.UI.Views
             InitializeComponent();
         }
 
+        // Handles the dialog when image is uploded
         private void SelectImage(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openDialog = new();
