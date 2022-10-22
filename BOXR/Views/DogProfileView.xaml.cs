@@ -44,8 +44,9 @@ namespace BOXR.UI.Views
                 Application.Current.MainWindow.Activate();
             };
             
-            if(_ancestorTreeView == null || !Application.Current.Windows.OfType<AncestorTreeView>().Any())
+            if(_ancestorTreeView == null || _ancestorTreeView != null && !Application.Current.Windows.OfType<AncestorTreeView>().Any(x => x == _ancestorTreeView))
             {
+                Application.Current.Windows.OfType<AncestorTreeView>().ToList().ForEach(x => x.Close());
                 _ancestorTreeView = new AncestorTreeView();
             }
             _ancestorTreeView.DataContext = ancestorViewModel;

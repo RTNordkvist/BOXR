@@ -14,6 +14,7 @@ namespace BOXR.UI.ViewModels
     {
         //Defines how many generations should be included in the tree structure
         private const int ANCESTOR_GENERATIONS = 4;
+        public override string Name => nameof(AncestorTreeViewModel);
 
         //AncesterTreeView code-behind subscribes on this event
         public Action<string> OnDogClicked;
@@ -29,7 +30,6 @@ namespace BOXR.UI.ViewModels
             _pedigreeNumber = pedigreeNumber;
         }
 
-        public override string Name => nameof(AncestorTreeViewModel);
 
         public List<DogNode> LoadAncestorTree()
         {

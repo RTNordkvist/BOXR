@@ -98,15 +98,22 @@ namespace BOXR.UI.Views
                 {
                     var isFemale = i % 2 == 0; //kønnet afgø
                     var dogRow = firstNodeRow + i * nodeDistance;
-                    // Each noed is rendered as a button. The color depends on the gender.
-                    CreateDogButton(dogs[i], grid, dogRow, column, context, isFemale ? "#F8C4B4" : "#B8E8FC");
+                    // Each node is rendered as a button. The color depends on the gender.
+                    CreateDogButton(dogs[i], grid, dogRow, column, context, isFemale);
 
                     // The mothers are placed above the father and thus a border is created from the mother to the father to create the links between nodes
                     if (isFemale)
                     {
-                        for (var j = dogRow; j < dogRow + nodeDistance; j++)
+                        for (var j = dogRow + 1; j < dogRow + nodeDistance; j++)
                         {
-                            AddLeftBorder(grid, j, column);
+                            if (j == dogRow + (nodeDistance / 2))
+                            {
+                                AddLeftBorder(grid, j, column, Colors.Transparent);
+                            }
+                            else
+                            {
+                                AddLeftBorder(grid, j, column, Colors.DarkGray);
+                            }
                         }
                     }
 
@@ -168,20 +175,20 @@ namespace BOXR.UI.Views
         }
 
         /// <summary>
-        /// Defines the bordes whcih creates the links between nodes
+        /// Defines the bordes which creates the links between nodes
         /// </summary>
-        private void AddLeftBorder(Grid grid, int row, int column)
+        private void AddLeftBorder(Grid grid, int row, int column, Color borderColor)
         {
             var border = new Border();
             border.BorderThickness = new Thickness(1, 0, 0, 0);
-            border.BorderBrush = new SolidColorBrush(Colors.Black);
+            border.BorderBrush = new SolidColorBrush(borderColor);
             Grid.SetRow(border, row);
             Grid.SetColumn(border, column);
             grid.Children.Add(border);
         }
 
         // Creates a button for a node containing text for name and pedigreeNumber
-        private void CreateDogButton(DogNode dog, Grid grid, int row, int column, AncestorTreeViewModel context, string color)
+        private void CreateDogButton(DogNode dog, Grid grid, int row, int column, AncestorTreeViewModel context, bool? isFemale)
         {
             var btn = new Button();
             var stackPanel = new StackPanel();
@@ -192,7 +199,16 @@ namespace BOXR.UI.Views
             stackPanel.Children.Add(nameBlock);
             stackPanel.Children.Add(pdBlock);
             btn.Content = stackPanel;
-            //btn.Style = Application.Current.Resources["treeButton"] as Style;
+            if (isFemale.HasValue)
+            {
+                var style = Application.Current.Resources[isFemale.Value ? "treeButtonFemale" : "treeButtonMale"] as Style;
+                btn.Style = style;
+            }
+            else if (dog.Name != null && dog.PedigreeNumber != null)
+            {
+                var style = Application.Current.Resources["treeButtonBase"] as Style;
+                btn.Style = style;
+            }
 
             // If the dog exist in the system a command is bound to the button, which leads to the selected dog profile.
             if (dog.Name != null && dog.PedigreeNumber != null)
@@ -205,11 +221,6 @@ namespace BOXR.UI.Views
                 btn.IsEnabled = false;
             }
 
-            if (color != null)
-            {
-                var bc = new BrushConverter();
-                btn.Background = (Brush)bc.ConvertFrom(color);
-            }
             Grid.SetRow(btn, row);
             Grid.SetColumn(btn, column);
             grid.Children.Add(btn);
