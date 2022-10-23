@@ -97,13 +97,13 @@ d:DesignHeight="750" d:DesignWidth="1000" Background="Transparent">
                         </TextBlock>
 
                         <Label Content="Inbreeding coefficient" Grid.Row="3" Grid.Column="0" FontSize="14"/>
-                        <TextBox Background="Transparent" BorderThickness="0" Text="{Binding InbreedingCoefficient}" IsReadOnly="True" TextWrapping="Wrap" Margin ="5" Grid.Row="3" Grid.Column="1" FontSize="14"/>
+                        <TextBox Background="Transparent" BorderThickness="0" Text="{Binding Path=InbreedingCoefficient, Converter={x1:DoubleToStringConverter}}" IsReadOnly="True" TextWrapping="Wrap" Margin ="5" Grid.Row="3" Grid.Column="1" FontSize="14"/>
 
                         <Label Content="Offspring" Grid.Row="5" Grid.Column="0" FontWeight="DemiBold" FontSize="20"/>
 
                     </Grid>
                     <ListBox ItemsSource="{Binding Path=Offspring}" SelectedItem="{Binding Path=SelectedOffspring}"
-                             MaxHeight="150" MinHeight="20">
+                             MaxHeight="100" MinHeight="20">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Width="320">

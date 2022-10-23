@@ -104,11 +104,14 @@ namespace BOXR.UI.ViewModels
 
         private void LoadOffspring()
         {
+            Offspring.RemoveAll();
+
             var seachresult = DogRepository.FindOffspring(Dog.PedigreeNumber)
                 .Select(x => new DogDTO(x));
-            Offspring.RemoveAll();
             foreach (var offspring in seachresult)
             {
+                if (Offspring.Any(x => x.Id == offspring.Id))
+                    continue;
                 Offspring.Add(offspring);
             }
         }

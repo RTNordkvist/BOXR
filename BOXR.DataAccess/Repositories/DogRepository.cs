@@ -171,9 +171,9 @@ namespace BOXR.DataAccess.Repositories
             {
 
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@pedigreeNumber", pedigreeNumber == null ? (object)DBNull.Value : "%" + pedigreeNumber + "%");
-                cmd.Parameters.AddWithValue("@name", name == null ? (object)DBNull.Value : "%" + name + "%");
-                cmd.Parameters.AddWithValue("@breeder", breeder == null ? (object)DBNull.Value : "%" + breeder + "%");
+                cmd.Parameters.AddWithValue("@pedigreeNumber", string.IsNullOrWhiteSpace(pedigreeNumber) ? (object)DBNull.Value : "%" + pedigreeNumber + "%");
+                cmd.Parameters.AddWithValue("@name", string.IsNullOrWhiteSpace(name) ? (object)DBNull.Value : "%" + name + "%");
+                cmd.Parameters.AddWithValue("@breeder", string.IsNullOrWhiteSpace(breeder) ? (object)DBNull.Value : "%" + breeder + "%");
 
                 conn.Open();
 
